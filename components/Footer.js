@@ -36,10 +36,10 @@ export default function Footer() {
                   <path d="M2 12l10 5 10-5" />
                 </svg>
               </div>
-              <span className="font-semibold text-base">Nova</span>
+              <span className="font-semibold text-base">ResHub</span>
             </div>
             <p className="text-dark-400 text-sm leading-relaxed max-w-xs">
-              以 AI 驱动的下一代科技平台，重新定义数字体验的可能性边界。
+              以资源管理为核心的协作平台，重新定义团队效率与知识沉淀的方式。
             </p>
           </div>
 
@@ -66,7 +66,7 @@ export default function Footer() {
         {/* Bottom */}
         <div className="mt-16 pt-8 border-t border-white/[0.04] flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-dark-500 text-xs">
-            © 2026 Nova. All rights reserved.
+            © 2026 ResHub. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
             {['Twitter', 'GitHub', 'Discord'].map((social) => (

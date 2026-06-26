@@ -39,7 +39,7 @@ export default function Navbar() {
               <path d="M2 12l10 5 10-5" />
             </svg>
           </div>
-          <span className="font-semibold text-base tracking-tight">Nova</span>
+          <span className="font-semibold text-base tracking-tight">ResHub</span>
         </Link>
 
         {/* Nav Links */}
@@ -61,10 +61,10 @@ export default function Navbar() {
 
         {/* Auth Buttons */}
         <div className="hidden md:flex items-center gap-3">
-          <Link href="/login" className="btn-ghost px-4 py-2 text-xs">
+          <Link href="/test-app/login" className="btn-ghost px-4 py-2 text-xs">
             登录
           </Link>
-          <Link href="/register" className="btn-primary px-4 py-2 text-xs">
+          <Link href="/test-app/register" className="btn-primary px-4 py-2 text-xs">
             开始使用
           </Link>
         </div>
@@ -107,12 +107,12 @@ export default function Navbar() {
                 </Link>
               ))}
               <div className="h-px bg-white/[0.06] my-2" />
-              <Link href="/login" onClick={() => setMobileOpen(false)} className="btn-ghost w-full text-center text-sm">
-                登录
-              </Link>
-              <Link href="/register" onClick={() => setMobileOpen(false)} className="btn-primary w-full text-center text-sm">
-                开始使用
-              </Link>
+          <Link href="/test-app/login" onClick={() => setMobileOpen(false)} className="btn-ghost w-full text-center text-sm">
+            登录
+          </Link>
+          <Link href="/test-app/register" onClick={() => setMobileOpen(false)} className="btn-primary w-full text-center text-sm">
+            开始使用
+          </Link>
             </div>
           </motion.div>
         )}

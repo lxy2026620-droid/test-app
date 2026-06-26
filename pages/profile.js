@@ -1,14 +1,18 @@
 import Sidebar from '../components/Sidebar';
+import AuthGuard from '../components/AuthGuard';
 import { FadeInView } from '../components/Shared';
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { auth } from '../lib/auth';
 
-const infoFields = [
-  { label: '姓名', value: '王晓' },
-  { label: '邮箱', value: 'wangxiao@nova.com' },
-  { label: '手机', value: '+86 138-0000-8888' },
-  { label: '部门', value: '产品设计部' },
-  { label: '职位', value: '高级产品经理' },
-];
+const defaultProfile = {
+  name: '王晓',
+  email: 'wangxiao@reshub.com',
+  phone: '+86 138-0000-8888',
+  dept: '产品设计部',
+  title: '高级产品经理',
+  bio: '拥有 8 年产品设计经验，专注于资源管理与团队协作领域的产品规划与用户体验设计。曾主导多个从 0 到 1 的成功项目，对效率类产品有深刻理解。',
+};
 
 const bookmarkItems = [
   {
@@ -54,20 +58,45 @@ const achievements = [
   { icon: '🎯', title: '目标达人', description: '连续 6 月达成 KPI' },
 ];
 
-const skillTags = ['产品设计', '用户体验', '数据分析', '项目管理', 'AI 应用', '团队协作'];
+const skillTags = ['产品设计', '用户体验', '数据分析', '项目管理', '团队协作'];
 
 export default function Profile() {
+  const [profile, setProfile] = useState(defaultProfile);
+
+  useEffect(() => {
+    const user = auth.getUser();
+    if (user) {
+      const saved = JSON.parse(localStorage.getItem('reshub_profile') || '{}');
+      setProfile({
+        name: saved.name || user.name || '用户',
+        email: saved.email || user.email || '',
+        phone: saved.phone || '',
+        dept: saved.dept || '',
+        title: saved.title || '',
+        bio: saved.bio || defaultProfile.bio,
+      });
+    }
+  }, []);
+
+  const infoFields = [
+    { label: '姓名', value: profile.name },
+    { label: '邮箱', value: profile.email },
+    { label: '手机', value: profile.phone || '-' },
+    { label: '部门', value: profile.dept || '-' },
+    { label: '职位', value: profile.title || '-' },
+  ];
   return (
+    <AuthGuard>
     <Sidebar>
       {/* ─────────── Profile Header ─────────── */}
       <FadeInView>
         <div className="flex items-center gap-6 mb-10 p-8 glass rounded-2xl">
           <div className="w-24 h-24 rounded-full bg-gradient-to-br from-accent-400 to-accent-600 flex items-center justify-center text-white text-3xl font-bold flex-shrink-0 shadow-lg shadow-accent-500/20">
-            王
+            {profile.name[0]}
           </div>
           <div className="flex-1 min-w-0">
-            <h1 className="text-2xl font-bold gradient-text mb-1">王晓</h1>
-            <p className="text-dark-400 text-sm mb-1">wangxiao@nova.com</p>
+            <h1 className="text-2xl font-bold gradient-text mb-1">{profile.name}</h1>
+            <p className="text-dark-400 text-sm mb-1">{profile.email || '-'}</p>
             <p className="text-dark-500 text-xs">2025年8月加入</p>
           </div>
           <a
@@ -123,11 +152,7 @@ export default function Profile() {
                 </svg>
                 个人简介
               </h2>
-              <p className="text-dark-300 text-sm leading-relaxed">
-                拥有 8 年产品设计经验，专注于 AI 领域的产品规划与用户体验设计。擅长从用户需求出发，
-                结合数据驱动的方法论，打造有影响力的产品。曾主导多个从 0 到 1 的成功项目，
-                对智能工具和效率类产品有深刻理解。业余时间热爱写作和分享，是公司内部设计社区的活跃贡献者。
-              </p>
+              <p className="text-dark-300 text-sm leading-relaxed">{profile.bio}</p>
             </div>
 
             <div className="glass rounded-2xl p-6">
@@ -219,5 +244,6 @@ export default function Profile() {
         </div>
       </FadeInView>
     </Sidebar>
+    </AuthGuard>
   );
 }

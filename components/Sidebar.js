@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { auth } from '../lib/auth';
 
 const sidebarItems = [
   {
@@ -54,7 +55,7 @@ export default function Sidebar({ children }) {
                 <path d="M2 12l10 5 10-5" />
               </svg>
             </div>
-            {!collapsed && <span className="font-semibold text-sm">Nova</span>}
+            {!collapsed && <span className="font-semibold text-sm">ResHub</span>}
           </Link>
         </div>
 
@@ -101,15 +102,32 @@ export default function Sidebar({ children }) {
           ))}
         </nav>
 
-        {/* Collapse Toggle */}
-        <div className="p-3 border-t border-white/[0.04]">
+        {/* User Info & Logout */}
+        <div className="p-3 border-t border-white/[0.04] space-y-1">
+          {!collapsed && (() => {
+            const user = auth.getUser?.() || null;
+            return user ? (
+              <div className="flex items-center gap-3 px-3 py-2 mb-1">
+                <div className="w-7 h-7 rounded-full bg-gradient-to-br from-accent-400 to-accent-600 flex items-center justify-center text-white text-xs font-semibold flex-shrink-0">
+                  {(user.name || '用')[0]}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs font-medium text-white truncate">{user.name}</p>
+                  <p className="text-[10px] text-dark-500 truncate">{user.email || '已登录'}</p>
+                </div>
+              </div>
+            ) : null;
+          })()}
           <button
-            onClick={() => setCollapsed(!collapsed)}
-            className="w-full flex items-center justify-center p-2 rounded-xl text-dark-400 hover:text-white hover:bg-white/[0.03] transition-all duration-200"
+            onClick={() => { auth.logout(); window.location.href = '/test-app/'; }}
+            className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-medium text-dark-400 hover:text-amber-400 hover:bg-white/[0.03] transition-all duration-200"
           >
-            <svg className={`w-4 h-4 transition-transform duration-200 ${collapsed ? 'rotate-180' : ''}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="15 18 9 12 15 6" />
+            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
+              <polyline points="16 17 21 12 16 7" />
+              <line x1="21" y1="12" x2="9" y2="12" />
             </svg>
+            {!collapsed && <span>退出登录</span>}
           </button>
         </div>
       </aside>
@@ -134,7 +152,7 @@ export default function Sidebar({ children }) {
               <path d="M2 12l10 5 10-5" />
             </svg>
           </div>
-          <span className="font-semibold text-sm">Nova</span>
+          <span className="font-semibold text-sm">ResHub</span>
         </div>
         <div className="w-8" />
       </div>
@@ -166,7 +184,7 @@ export default function Sidebar({ children }) {
                       <path d="M2 12l10 5 10-5" />
                     </svg>
                   </div>
-                  <span className="font-semibold text-sm">Nova</span>
+                  <span className="font-semibold text-sm">ResHub</span>
                 </div>
                 <button onClick={() => setMobileOpen(false)} className="w-8 h-8 flex items-center justify-center">
                   <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">

@@ -1,5 +1,8 @@
 import Sidebar from '../components/Sidebar';
+import AuthGuard from '../components/AuthGuard';
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { auth } from '../lib/auth';
 
 const stagger = {
   animate: {
@@ -109,7 +112,14 @@ const chartData = [
 const maxChartValue = 100;
 
 export default function Dashboard() {
+  const [user, setUser] = useState({ name: '用户', email: '' });
+
+  useEffect(() => {
+    const u = auth.getUser();
+    if (u) setUser(u);
+  }, []);
   return (
+    <AuthGuard>
     <Sidebar>
       <motion.div
         className="space-y-8"
@@ -131,10 +141,10 @@ export default function Dashboard() {
         <motion.div variants={fadeUp} className="glass-card rounded-2xl p-6 md:p-8">
           <div className="flex items-center gap-5">
             <div className="w-16 h-16 rounded-full bg-gradient-to-br from-accent-400 via-accent-500 to-accent-600 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-accent-500/20 flex-shrink-0">
-              张
+              {user.name[0]}
             </div>
             <div className="flex-1 min-w-0">
-              <h2 className="text-lg font-semibold text-white">张明</h2>
+              <h2 className="text-lg font-semibold text-white">{user.name}</h2>
               <div className="flex items-center gap-3 mt-1 flex-wrap">
                 <span className="text-dark-400 text-sm">高级用户</span>
                 <span className="w-1 h-1 rounded-full bg-dark-500" />
@@ -262,5 +272,6 @@ export default function Dashboard() {
         </motion.div>
       </motion.div>
     </Sidebar>
+    </AuthGuard>
   );
 }

@@ -34,8 +34,8 @@ const features = [
         <path d="M2 12l10 5 10-5" />
       </svg>
     ),
-    title: 'AI 智能助手',
-    description: '基于先进大模型，提供智能对话、代码生成、内容创作等能力',
+    title: '资源管理',
+    description: '集中管理团队文档、模板、素材与知识库，分类清晰检索便捷',
   },
   {
     icon: (
@@ -46,8 +46,8 @@ const features = [
         <rect x="3" y="14" width="7" height="7" />
       </svg>
     ),
-    title: '工具中心',
-    description: '集成开发、设计、协作等专业工具，一站式工作平台',
+    title: '工具集成',
+    description: '集成开发、设计、协作等专业工具，资源一键调用无缝衔接',
   },
   {
     icon: (
@@ -57,8 +57,8 @@ const features = [
         <path d="M6 20v-6" />
       </svg>
     ),
-    title: '数据洞察',
-    description: '实时数据分析与可视化，让数据驱动决策',
+    title: '知识库',
+    description: '构建团队知识体系，沉淀最佳实践，让经验可复用可传承',
   },
   {
     icon: (
@@ -67,8 +67,8 @@ const features = [
         <path d="M7 11V7a5 5 0 0110 0v4" />
       </svg>
     ),
-    title: '安全可靠',
-    description: '企业级安全防护，数据加密传输与存储',
+    title: '模板中心',
+    description: '提供丰富的项目模板和文档模板，快速启动标准化工作流程',
   },
   {
     icon: (
@@ -80,8 +80,8 @@ const features = [
         <path d="M11.5 14.5l3-2" />
       </svg>
     ),
-    title: '协同工作',
-    description: '多人实时协作，团队效率倍增',
+    title: '团队协作',
+    description: '多人实时编辑评论，资源同步更新，团队效率倍增',
   },
   {
     icon: (
@@ -90,8 +90,8 @@ const features = [
         <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" />
       </svg>
     ),
-    title: '开放生态',
-    description: '丰富的 API 与插件系统，无限扩展可能',
+    title: '开放平台',
+    description: '开放的 API 与插件系统，资源生态无限扩展',
   },
 ];
 
@@ -100,19 +100,19 @@ const testimonials = [
     initials: '张',
     name: '张明远',
     role: 'TechCo 技术总监',
-    quote: 'Nova 的 AI 助手让我们的开发效率提升了至少 40%。代码生成的质量令人惊叹，团队成员现在可以专注于更有创造性的工作。',
+    quote: 'ResHub 的资源管理系统让我们的协作效率提升了至少 40%。文档分类清晰、检索便捷，团队成员现在可以快速找到所需资源，专注于更有价值的工作。',
   },
   {
     initials: '李',
     name: '李思雨',
     role: 'DataFlow 创始人',
-    quote: '数据洞察模块彻底改变了我们做决策的方式。可视化仪表盘让复杂数据一目了然，实时分析功能帮助我们抓住了多个市场机会。',
+    quote: '知识库模块彻底改变了我们沉淀经验的方式。最佳实践、技术方案都能系统化整理和传承，新成员上手时间大幅缩短，团队知识不再碎片化。',
   },
   {
     initials: '王',
     name: '王浩然',
     role: 'CloudBase CTO',
-    quote: '企业级的安全架构和开放的生态体系是我们选择 Nova 的关键。API 扩展能力极为出色，完美适配了我们的现有技术栈。',
+    quote: '丰富的项目模板库和开放的 API 生态是我们选择 ResHub 的关键。标准化模板大幅减少了重复工作，插件系统完美适配了我们的现有工具链。',
   },
 ];
 
@@ -172,7 +172,7 @@ export default function Home() {
           <motion.div variants={fadeUp} className="mb-6">
             <span className="inline-flex items-center gap-2 px-4 py-1.5 glass rounded-full text-xs font-medium text-accent-300 tracking-wide">
               <span className="w-1.5 h-1.5 rounded-full bg-accent-500 animate-pulse" />
-              新一代智能工作平台
+              资源聚合 · 高效协作
             </span>
           </motion.div>
 
@@ -180,16 +180,14 @@ export default function Home() {
             variants={fadeUp}
             className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[1.1] mb-6 gradient-text text-balance"
           >
-            以 AI 驱动未来
+            资源中心
           </motion.h1>
 
           <motion.p
             variants={fadeUp}
             className="text-dark-300 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
           >
-            Nova 整合先进人工智能与专业工具，为现代团队打造
-            <br className="hidden sm:block" />
-            前所未有的高效工作体验
+            ResHub 整合文档、工具、模板与知识库，为团队打造一站式的资源管理中心
           </motion.p>
 
           <motion.div variants={fadeUp} className="flex items-center justify-center gap-4 flex-wrap">
@@ -253,10 +251,10 @@ export default function Home() {
 
         <FadeInView className="max-w-5xl mx-auto relative z-10">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-            <StatCard value="100万+" label="活跃用户" sub="覆盖全球 50+ 国家" />
-            <StatCard value="99.9%" label="服务可用性" sub="全年无故障运行" />
-            <StatCard value="50+" label="集成服务" sub="主流工具全接入" />
-            <StatCard value="24/7" label="技术支持" sub="专业团队即时响应" />
+            <StatCard value="100万+" label="资源总数" sub="覆盖全球 50+ 国家" />
+            <StatCard value="99.9%" label="模板数量" sub="全年无故障运行" />
+            <StatCard value="50+" label="团队成员" sub="主流工具全接入" />
+            <StatCard value="24/7" label="精品资源" sub="专业团队即时响应" />
           </div>
         </FadeInView>
       </section>
@@ -321,10 +319,10 @@ export default function Home() {
 
         <FadeInView className="relative z-10 max-w-3xl mx-auto text-center">
           <h2 className="section-title mb-6 text-balance">
-            准备好开启全新工作方式了吗？
+            开始构建您的资源中心
           </h2>
           <p className="text-dark-300 text-lg md:text-xl mb-10 max-w-xl mx-auto">
-            加入数千家领先企业，体验 AI 驱动的未来工作平台
+            加入数千个团队，体验高效资源管理
           </p>
           <div className="flex items-center justify-center gap-4 flex-wrap">
             <a href="/test-app/register" className="btn-accent px-10 py-4 text-base inline-flex items-center">
