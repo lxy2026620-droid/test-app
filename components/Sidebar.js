@@ -1,58 +1,39 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { auth } from '../lib/auth';
 
 const sidebarItems = [
   {
     group: '导航',
     items: [
-      { label: '主页', href: '/', icon: '◈' },
-      { label: '个人中心', href: '/profile', icon: '◎' },
+      { label: '资源中心', href: '/', icon: '◈' },
     ],
   },
   {
-    group: '管理',
+    group: '链接',
     items: [
-      { label: '添加资源', href: '#', icon: '＋', comingSoon: true },
-      { label: '分类管理', href: '#', icon: '⊞', comingSoon: true },
-      { label: '收藏夹', href: '#', icon: '★', comingSoon: true },
-    ],
-  },
-  {
-    group: '系统',
-    items: [
-      { label: '设置', href: '/settings', icon: '⚙' },
-      { label: '关于', href: '/about', icon: '◎' },
+      { label: '关于本站', href: '/about', icon: '◎' },
+      { label: '联系', href: '/contact', icon: '✉' },
     ],
   },
 ];
 
 export default function Sidebar({ children }) {
-  const router = useRouter();
-  const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
     <div className="flex min-h-screen">
       {/* Desktop Sidebar */}
-      <aside
-        className={`hidden md:flex flex-col fixed left-0 top-0 bottom-0 bg-dark-950/90 backdrop-blur-2xl border-r border-white/[0.04] z-40 transition-all duration-300 ${
-          collapsed ? 'w-16' : 'w-60'
-        }`}
-      >
+      <aside className="hidden md:flex flex-col fixed left-0 top-0 bottom-0 bg-dark-950/90 backdrop-blur-2xl border-r border-white/[0.04] z-40 w-48">
         {/* Logo */}
         <div className="h-16 flex items-center px-4 border-b border-white/[0.04]">
           <Link href="/" className="flex items-center gap-2.5">
             <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-accent-400 to-accent-600 flex items-center justify-center flex-shrink-0">
               <svg className="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 2L2 7l10 5 10-5-10-5z" />
-                <path d="M2 17l10 5 10-5" />
-                <path d="M2 12l10 5 10-5" />
+                <path d="M4 7v10c0 2 1 3 3 3h10c2 0 3-1 3-3V7M8 12h8M12 8v8" />
               </svg>
             </div>
-            {!collapsed && <span className="font-semibold text-sm">ResHub</span>}
+            <span className="font-semibold text-sm">ResHub</span>
           </Link>
         </div>
 
@@ -60,81 +41,34 @@ export default function Sidebar({ children }) {
         <nav className="flex-1 overflow-y-auto p-3 space-y-6">
           {sidebarItems.map((group) => (
             <div key={group.group}>
-              {!collapsed && (
-                <p className="text-dark-500 text-[10px] font-semibold uppercase tracking-wider px-3 mb-2">
-                  {group.group}
-                </p>
-              )}
+              <p className="text-dark-500 text-[10px] font-semibold uppercase tracking-wider px-3 mb-2">
+                {group.group}
+              </p>
               <div className="space-y-0.5">
-                {group.items.map((item) => {
-                  const isActive = router.pathname === item.href;
-                  return (
-                    <Link
-                      key={item.label}
-                      href={item.href}
-                      className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
-                        isActive
-                          ? 'bg-white/[0.06] text-white'
-                          : item.comingSoon
-                          ? 'text-dark-400 cursor-default'
-                          : 'text-dark-300 hover:text-white hover:bg-white/[0.03]'
-                      }`}
-                      title={collapsed ? item.label : undefined}
-                      onClick={item.comingSoon ? (e) => e.preventDefault() : undefined}
-                    >
-                      <span className="w-4 h-4 flex items-center justify-center flex-shrink-0 text-xs">
-                        {item.icon}
-                      </span>
-                      {!collapsed && (
-                      <span className="flex-1 flex items-center justify-between gap-2">
-                          <span className={item.comingSoon ? 'opacity-40' : ''}>{item.label}</span>
-                          {item.comingSoon && <span className="text-[10px] text-dark-500 italic">开发中</span>}
-                        </span>
-                      )}
-                    </Link>
-                  );
-                })}
+                {group.items.map((item) => (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 text-dark-300 hover:text-white hover:bg-white/[0.03]"
+                  >
+                    <span className="w-4 h-4 flex items-center justify-center flex-shrink-0 text-xs">{item.icon}</span>
+                    <span>{item.label}</span>
+                  </Link>
+                ))}
               </div>
             </div>
           ))}
         </nav>
 
-        {/* User Info & Logout */}
-        <div className="p-3 border-t border-white/[0.04] space-y-1">
-          {!collapsed && (() => {
-            const user = auth.getUser?.() || null;
-            return user ? (
-              <div className="flex items-center gap-3 px-3 py-2 mb-1">
-                <div className="w-7 h-7 rounded-full bg-gradient-to-br from-accent-400 to-accent-600 flex items-center justify-center text-white text-xs font-semibold flex-shrink-0">
-                  {(user.name || '用')[0]}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-xs font-medium text-white truncate">{user.name}</p>
-                  <p className="text-[10px] text-dark-500 truncate">{user.email || '已登录'}</p>
-                </div>
-              </div>
-            ) : null;
-          })()}
-          <button
-            onClick={() => { auth.logout(); window.location.href = '/test-app/login'; }}
-            className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-medium text-dark-400 hover:text-amber-400 hover:bg-white/[0.03] transition-all duration-200"
-          >
-            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
-              <polyline points="16 17 21 12 16 7" />
-              <line x1="21" y1="12" x2="9" y2="12" />
-            </svg>
-            {!collapsed && <span>退出登录</span>}
-          </button>
+        {/* Footer */}
+        <div className="p-3 border-t border-white/[0.04]">
+          <p className="text-dark-500 text-[10px] text-center">资源由管理员维护</p>
         </div>
       </aside>
 
       {/* Mobile Header */}
       <div className="md:hidden fixed top-0 left-0 right-0 h-14 bg-dark-950/90 backdrop-blur-2xl border-b border-white/[0.04] z-40 flex items-center justify-between px-4">
-        <button
-          onClick={() => setMobileOpen(true)}
-          className="w-8 h-8 flex items-center justify-center"
-        >
+        <button onClick={() => setMobileOpen(true)} className="w-8 h-8 flex items-center justify-center">
           <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <line x1="3" y1="6" x2="21" y2="6" />
             <line x1="3" y1="12" x2="21" y2="12" />
@@ -144,9 +78,7 @@ export default function Sidebar({ children }) {
         <div className="flex items-center gap-2">
           <div className="w-6 h-6 rounded-md bg-gradient-to-br from-accent-400 to-accent-600 flex items-center justify-center">
             <svg className="w-3 h-3 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <path d="M12 2L2 7l10 5 10-5-10-5z" />
-              <path d="M2 17l10 5 10-5" />
-              <path d="M2 12l10 5 10-5" />
+              <path d="M4 7v10c0 2 1 3 3 3h10c2 0 3-1 3-3V7M8 12h8M12 8v8" />
             </svg>
           </div>
           <span className="font-semibold text-sm">ResHub</span>
@@ -169,16 +101,14 @@ export default function Sidebar({ children }) {
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed left-0 top-0 bottom-0 w-64 bg-dark-950 border-r border-white/[0.04] overflow-y-auto"
+              className="fixed left-0 top-0 bottom-0 w-56 bg-dark-950 border-r border-white/[0.04] overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="h-14 flex items-center justify-between px-4 border-b border-white/[0.04]">
                 <div className="flex items-center gap-2">
                   <div className="w-6 h-6 rounded-md bg-gradient-to-br from-accent-400 to-accent-600 flex items-center justify-center">
                     <svg className="w-3 h-3 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                      <path d="M12 2L2 7l10 5 10-5-10-5z" />
-                      <path d="M2 17l10 5 10-5" />
-                      <path d="M2 12l10 5 10-5" />
+                      <path d="M4 7v10c0 2 1 3 3 3h10c2 0 3-1 3-3V7M8 12h8M12 8v8" />
                     </svg>
                   </div>
                   <span className="font-semibold text-sm">ResHub</span>
@@ -199,20 +129,11 @@ export default function Sidebar({ children }) {
                         <Link
                           key={item.label}
                           href={item.href}
-                          onClick={() => { if (!item.comingSoon) setMobileOpen(false); }}
-                          className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
-                            router.pathname === item.href
-                              ? 'bg-white/[0.06] text-white'
-                              : item.comingSoon
-                              ? 'text-dark-400 cursor-default'
-                              : 'text-dark-300 hover:text-white hover:bg-white/[0.03]'
-                          }`}
+                          onClick={() => setMobileOpen(false)}
+                          className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 text-dark-300 hover:text-white hover:bg-white/[0.03]"
                         >
                           <span className="w-4 h-4 flex items-center justify-center text-xs">{item.icon}</span>
-                          <span className="flex-1 flex items-center justify-between gap-2">
-                            <span className={item.comingSoon ? 'opacity-40' : ''}>{item.label}</span>
-                            {item.comingSoon && <span className="text-[10px] text-dark-500 italic">开发中</span>}
-                          </span>
+                          {item.label}
                         </Link>
                       ))}
                     </div>
@@ -225,7 +146,7 @@ export default function Sidebar({ children }) {
       </AnimatePresence>
 
       {/* Main Content */}
-      <main className={`flex-1 transition-all duration-300 ${'md:ml-60'} pt-14 md:pt-0`}>
+      <main className="flex-1 md:ml-48 pt-14 md:pt-0">
         <div className="max-w-6xl mx-auto p-6 md:p-10">
           {children}
         </div>

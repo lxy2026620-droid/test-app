@@ -5,8 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const navItems = [
   { label: '主页', href: '/' },
-  { label: '设置', href: '/settings' },
   { label: '关于', href: '/about' },
+  { label: '联系', href: '/contact' },
 ];
 
 export default function Navbar() {
@@ -58,12 +58,7 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* Entry Button */}
-        <div className="hidden md:flex items-center gap-3">
-          <Link href="/login" className="btn-primary px-4 py-2 text-xs">
-            进入主页
-          </Link>
-        </div>
+        <div className="hidden md:flex items-center gap-3" />
 
         {/* Mobile Toggle */}
         <button
@@ -102,10 +97,6 @@ export default function Navbar() {
                   {item.label}
                 </Link>
               ))}
-              <div className="h-px bg-white/[0.06] my-2" />
-          <Link href="/login" onClick={() => setMobileOpen(false)} className="btn-primary w-full text-center text-sm">
-            进入主页
-          </Link>
             </div>
           </motion.div>
         )}

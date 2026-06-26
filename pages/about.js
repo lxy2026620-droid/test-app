@@ -276,10 +276,10 @@ export default function About() {
         <FadeInView className="relative z-10 max-w-3xl mx-auto text-center">
           <h2 className="section-title mb-6 text-balance">加入 ResHub，共建资源生态</h2>
           <p className="text-dark-300 text-lg md:text-xl mb-10 max-w-xl mx-auto">
-            无论你是管理者、创作者还是团队领袖，ResHub 都欢迎你的加入
+            ResHub — 由开发者维护的资源分享站
           </p>
           <div className="flex items-center justify-center gap-4 flex-wrap">
-            <a href="/test-app/login" className="btn-accent px-10 py-4 text-base inline-flex items-center">加入我们</a>
+            <a href="/" className="btn-accent px-10 py-4 text-base inline-flex items-center">浏览资源</a>
             <a href="/test-app/contact" className="btn-ghost px-10 py-4 text-base inline-flex items-center">联系我们</a>
           </div>
         </FadeInView>
