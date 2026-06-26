@@ -65,7 +65,10 @@ export default function Home() {
               {games.length > 0 ? (
                 <div className="space-y-3">
                   {games.map((game) => (
-                    <div key={game.id} className="flex flex-col sm:flex-row sm:items-center gap-3 p-4 rounded-xl bg-white/[0.02] border border-white/[0.04] hover:bg-white/[0.04] transition-colors">
+                    <div key={game.id} className="flex flex-col sm:flex-row sm:items-center gap-4 p-4 rounded-xl bg-white/[0.02] border border-white/[0.04] hover:bg-white/[0.04] transition-colors">
+                      <div className="w-full sm:w-24 h-16 sm:h-16 rounded-lg overflow-hidden flex-shrink-0 bg-dark-800">
+                        <img src="/test-app/hoi4.jpg" alt={game.title} className="w-full h-full object-cover" onError={(e) => { e.target.style.display = 'none' }} />
+                      </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-1">
                           <h4 className="text-sm font-medium text-white">{game.title}</h4>
