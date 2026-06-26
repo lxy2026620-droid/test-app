@@ -64,8 +64,8 @@ export default function Navbar() {
           <Link href="/test-app/login" className="btn-ghost px-4 py-2 text-xs">
             登录
           </Link>
-          <Link href="/test-app/register" className="btn-primary px-4 py-2 text-xs">
-            开始使用
+          <Link href="/test-app/login" className="btn-primary px-4 py-2 text-xs">
+            进入控制台
           </Link>
         </div>
 
@@ -107,11 +107,8 @@ export default function Navbar() {
                 </Link>
               ))}
               <div className="h-px bg-white/[0.06] my-2" />
-          <Link href="/test-app/login" onClick={() => setMobileOpen(false)} className="btn-ghost w-full text-center text-sm">
-            登录
-          </Link>
-          <Link href="/test-app/register" onClick={() => setMobileOpen(false)} className="btn-primary w-full text-center text-sm">
-            开始使用
+          <Link href="/test-app/login" onClick={() => setMobileOpen(false)} className="btn-primary w-full text-center text-sm">
+            进入控制台
           </Link>
             </div>
           </motion.div>

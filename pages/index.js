@@ -4,8 +4,9 @@
 
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { FadeInView, GlassCard, StatCard, FeatureCard } from '../components/Shared';
+import { FadeInView, GlassCard, FeatureCard } from '../components/Shared';
 import { motion } from 'framer-motion';
+import games from '../data/games';
 
 const stagger = {
   animate: {
@@ -29,13 +30,14 @@ const features = [
   {
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 2L2 7l10 5 10-5-10-5z" />
-        <path d="M2 17l10 5 10-5" />
-        <path d="M2 12l10 5 10-5" />
+        <path d="M6 2h12l2 6-2 6H6L4 8l2-6z" />
+        <path d="M6 14h12l2 6-2 6H6l-2-6 2-6z" />
+        <circle cx="12" cy="8" r="1" />
+        <circle cx="12" cy="20" r="1" />
       </svg>
     ),
-    title: '资源管理',
-    description: '集中管理团队文档、模板、素材与知识库，分类清晰检索便捷',
+    title: '游戏库',
+    description: '收录各类游戏资源，持续更新链接',
   },
   {
     icon: (
@@ -46,29 +48,37 @@ const features = [
         <rect x="3" y="14" width="7" height="7" />
       </svg>
     ),
-    title: '工具集成',
-    description: '集成开发、设计、协作等专业工具，资源一键调用无缝衔接',
+    title: '分类检索',
+    description: '按类型、平台、年份快速筛选',
   },
   {
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M18 20V10" />
-        <path d="M12 20V4" />
-        <path d="M6 20v-6" />
+        <path d="M12 20h9" />
+        <path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z" />
       </svg>
     ),
-    title: '知识库',
-    description: '构建团队知识体系，沉淀最佳实践，让经验可复用可传承',
+    title: '链接管理',
+    description: '统一管理下载链接，标记可用状态',
   },
   {
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-        <path d="M7 11V7a5 5 0 0110 0v4" />
+        <circle cx="12" cy="12" r="10" />
+        <polyline points="12 6 12 12 16 14" />
       </svg>
     ),
-    title: '模板中心',
-    description: '提供丰富的项目模板和文档模板，快速启动标准化工作流程',
+    title: '更新追踪',
+    description: '记录资源更新历史，追踪链接有效性',
+  },
+  {
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z" />
+      </svg>
+    ),
+    title: '收藏夹',
+    description: '收藏喜欢的资源，建立个人游戏库',
   },
   {
     icon: (
@@ -80,41 +90,22 @@ const features = [
         <path d="M11.5 14.5l3-2" />
       </svg>
     ),
-    title: '团队协作',
-    description: '多人实时编辑评论，资源同步更新，团队效率倍增',
-  },
-  {
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="3" />
-        <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" />
-      </svg>
-    ),
-    title: '开放平台',
-    description: '开放的 API 与插件系统，资源生态无限扩展',
+    title: '分享协作',
+    description: '分享资源给朋友，共建资源列表',
   },
 ];
 
-const testimonials = [
-  {
-    initials: '张',
-    name: '张明远',
-    role: 'TechCo 技术总监',
-    quote: 'ResHub 的资源管理系统让我们的协作效率提升了至少 40%。文档分类清晰、检索便捷，团队成员现在可以快速找到所需资源，专注于更有价值的工作。',
-  },
-  {
-    initials: '李',
-    name: '李思雨',
-    role: 'DataFlow 创始人',
-    quote: '知识库模块彻底改变了我们沉淀经验的方式。最佳实践、技术方案都能系统化整理和传承，新成员上手时间大幅缩短，团队知识不再碎片化。',
-  },
-  {
-    initials: '王',
-    name: '王浩然',
-    role: 'CloudBase CTO',
-    quote: '丰富的项目模板库和开放的 API 生态是我们选择 ResHub 的关键。标准化模板大幅减少了重复工作，插件系统完美适配了我们的现有工具链。',
-  },
-];
+const categoryColors = {
+  '动作冒险': 'from-emerald-400 to-emerald-600',
+  '模拟经营': 'from-violet-400 to-violet-600',
+  '角色扮演': 'from-amber-400 to-amber-600',
+};
+
+const statusStyles = {
+  '可直接游玩': 'text-green-400 bg-green-500/10 border-green-500/20',
+  '待测试': 'text-yellow-400 bg-yellow-500/10 border-yellow-500/20',
+  '链接失效': 'text-red-400 bg-red-500/10 border-red-500/20',
+};
 
 export default function Home() {
   return (
@@ -172,7 +163,7 @@ export default function Home() {
           <motion.div variants={fadeUp} className="mb-6">
             <span className="inline-flex items-center gap-2 px-4 py-1.5 glass rounded-full text-xs font-medium text-accent-300 tracking-wide">
               <span className="w-1.5 h-1.5 rounded-full bg-accent-500 animate-pulse" />
-              资源聚合 · 高效协作
+              游戏资源 · 持续更新
             </span>
           </motion.div>
 
@@ -180,25 +171,25 @@ export default function Home() {
             variants={fadeUp}
             className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[1.1] mb-6 gradient-text text-balance"
           >
-            资源中心
+            资源中转站
           </motion.h1>
 
           <motion.p
             variants={fadeUp}
             className="text-dark-300 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
           >
-            ResHub 整合文档、工具、模板与知识库，为团队打造一站式的资源管理中心
+            个人游戏资源导航站 — 收录、分类、管理你喜爱的游戏资源，一站式直达
           </motion.p>
 
           <motion.div variants={fadeUp} className="flex items-center justify-center gap-4 flex-wrap">
-            <a href="/test-app/register" className="btn-accent px-8 py-3.5 text-base inline-flex items-center">
-              开始使用
+            <a href="#latest" className="btn-accent px-8 py-3.5 text-base inline-flex items-center">
+              浏览资源
               <svg className="ml-2 w-4 h-4" viewBox="0 0 16 16" fill="none">
                 <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </a>
             <a href="#features" className="btn-ghost px-8 py-3.5 text-base inline-flex items-center">
-              了解更多
+              功能一览
             </a>
           </motion.div>
         </motion.div>
@@ -223,8 +214,8 @@ export default function Home() {
       <section id="features" className="relative py-32 px-6">
         <div className="max-w-6xl mx-auto">
           <FadeInView className="text-center mb-20">
-            <h2 className="section-title mb-4">强大功能</h2>
-            <p className="section-subtitle">为现代团队打造的全方位解决方案</p>
+            <h2 className="section-title mb-4">功能特色</h2>
+            <p className="section-subtitle">为游戏资源管理打造的实用工具</p>
           </FadeInView>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -235,74 +226,113 @@ export default function Home() {
                 title={feature.title}
                 description={feature.description}
                 delay={i * 0.1}
-                comingSoon={true}
               />
             ))}
           </div>
         </div>
       </section>
 
-      {/* ─────────── STATS ─────────── */}
-      <section className="relative py-32 px-6">
-        {/* Subtle background */}
+      {/* ─────────── LATEST RESOURCES ─────────── */}
+      <section id="latest" className="relative py-32 px-6">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent-600/5 rounded-full blur-[100px]" />
         </div>
 
-        <FadeInView className="max-w-5xl mx-auto relative z-10">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-            <StatCard value="100万+" label="资源总数" sub="覆盖全球 50+ 国家" />
-            <StatCard value="99.9%" label="模板数量" sub="全年无故障运行" />
-            <StatCard value="50+" label="团队成员" sub="主流工具全接入" />
-            <StatCard value="24/7" label="精品资源" sub="专业团队即时响应" />
+        <FadeInView className="max-w-6xl mx-auto relative z-10">
+          <div className="text-center mb-16">
+            <h2 className="section-title mb-4">最新资源</h2>
+            <p className="section-subtitle">这里没有虚假的数据，只有真实的资源</p>
           </div>
-        </FadeInView>
-      </section>
-
-      {/* ─────────── TESTIMONIALS ─────────── */}
-      <section className="relative py-32 px-6">
-        <div className="max-w-6xl mx-auto">
-          <FadeInView className="text-center mb-20">
-            <h2 className="section-title mb-4">用户评价</h2>
-            <p className="section-subtitle">来自行业领先团队的真实反馈</p>
-          </FadeInView>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {testimonials.map((item, i) => (
+            {games.slice(0, 3).map((game, i) => (
               <motion.div
-                key={item.name}
+                key={game.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-80px' }}
                 transition={{ duration: 0.6, delay: i * 0.15, ease: [0.25, 0.1, 0.25, 1] }}
               >
-                <GlassCard className="p-8 h-full flex flex-col">
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-accent-400 to-accent-600 flex items-center justify-center text-white font-semibold text-sm shadow-lg shadow-accent-500/20">
-                      {item.initials}
-                    </div>
-                    <div>
-                      <div className="text-white font-medium text-sm">{item.name}</div>
-                      <div className="text-dark-400 text-xs">{item.role}</div>
-                    </div>
+                <GlassCard className="p-6 h-full flex flex-col">
+                  {/* Category badge */}
+                  <div className="flex items-center justify-between mb-4">
+                    <span className={`inline-block text-[10px] font-semibold tracking-wider uppercase px-2.5 py-1 rounded-full bg-gradient-to-r ${categoryColors[game.category] || 'from-accent-400 to-accent-600'} text-white shadow-lg shadow-accent-500/20`}>
+                      {game.category}
+                    </span>
+                    <span className={`text-xs px-2 py-0.5 rounded-full border ${statusStyles[game.status] || 'text-dark-400 bg-dark-800/50 border-dark-700'}`}>
+                      {game.status}
+                    </span>
                   </div>
 
-                  {/* Quote icon */}
-                  <svg className="w-6 h-6 text-accent-500/20 mb-4 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11H10v10H0z" />
-                  </svg>
-
-                  <p className="text-dark-300 text-sm leading-relaxed flex-1">
-                    {item.quote}
+                  <h3 className="text-white font-semibold text-lg mb-2">{game.title}</h3>
+                  <p className="text-dark-400 text-sm leading-relaxed flex-1 mb-6">
+                    {game.description}
                   </p>
 
-                  {/* Star rating */}
-                  <div className="flex gap-1 mt-6">
-                    {[...Array(5)].map((_, j) => (
-                      <svg key={j} className="w-3.5 h-3.5 text-accent-400" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  <a
+                    href={game.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-1.5 text-xs font-medium text-accent-300 hover:text-accent-200 transition-colors"
+                  >
+                    访问链接
+                    <svg className="w-3.5 h-3.5" viewBox="0 0 16 16" fill="none">
+                      <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </a>
+                </GlassCard>
+              </motion.div>
+            ))}
+          </div>
+        </FadeInView>
+      </section>
+
+      {/* ─────────── ALL RESOURCES ─────────── */}
+      <section id="resources" className="relative py-32 px-6">
+        <div className="max-w-6xl mx-auto">
+          <FadeInView className="text-center mb-16">
+            <h2 className="section-title mb-4">全部资源</h2>
+            <p className="section-subtitle">浏览收录的所有游戏资源</p>
+          </FadeInView>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {games.map((game, i) => (
+              <motion.div
+                key={game.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-80px' }}
+                transition={{ duration: 0.6, delay: i * 0.15, ease: [0.25, 0.1, 0.25, 1] }}
+              >
+                <GlassCard className="p-6 h-full flex flex-col">
+                  {/* Category badge */}
+                  <div className="flex items-center justify-between mb-4">
+                    <span className={`inline-block text-[10px] font-semibold tracking-wider uppercase px-2.5 py-1 rounded-full bg-gradient-to-r ${categoryColors[game.category] || 'from-accent-400 to-accent-600'} text-white shadow-lg shadow-accent-500/20`}>
+                      {game.category}
+                    </span>
+                    <span className={`text-xs px-2 py-0.5 rounded-full border ${statusStyles[game.status] || 'text-dark-400 bg-dark-800/50 border-dark-700'}`}>
+                      {game.status}
+                    </span>
+                  </div>
+
+                  <h3 className="text-white font-semibold text-lg mb-2">{game.title}</h3>
+                  <p className="text-dark-400 text-sm leading-relaxed flex-1 mb-6">
+                    {game.description}
+                  </p>
+
+                  <div className="flex items-center justify-between">
+                    <span className="text-dark-600 text-xs">收录于 {game.addedAt}</span>
+                    <a
+                      href={game.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-medium text-accent-300 border border-accent-500/20 rounded-lg hover:bg-accent-500/10 transition-colors"
+                    >
+                      访问链接
+                      <svg className="w-3.5 h-3.5" viewBox="0 0 16 16" fill="none">
+                        <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
-                    ))}
+                    </a>
                   </div>
                 </GlassCard>
               </motion.div>
@@ -319,17 +349,17 @@ export default function Home() {
 
         <FadeInView className="relative z-10 max-w-3xl mx-auto text-center">
           <h2 className="section-title mb-6 text-balance">
-            开始构建您的资源中心
+            想要添加资源？
           </h2>
           <p className="text-dark-300 text-lg md:text-xl mb-10 max-w-xl mx-auto">
-            加入数千个团队，体验高效资源管理
+            登录后即可管理您的资源列表
           </p>
           <div className="flex items-center justify-center gap-4 flex-wrap">
-            <a href="/test-app/register" className="btn-accent px-10 py-4 text-base inline-flex items-center">
-              免费开始使用
-            </a>
-            <a href="/test-app/contact" className="btn-ghost px-10 py-4 text-base inline-flex items-center">
-              预约演示
+            <a href="/test-app/login" className="btn-accent px-10 py-4 text-base inline-flex items-center">
+              进入控制台
+              <svg className="ml-2 w-4 h-4" viewBox="0 0 16 16" fill="none">
+                <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
             </a>
           </div>
         </FadeInView>

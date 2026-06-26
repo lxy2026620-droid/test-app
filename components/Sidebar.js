@@ -6,21 +6,19 @@ import { auth } from '../lib/auth';
 
 const sidebarItems = [
   {
-    group: '主菜单',
+    group: '导航',
     items: [
       { label: '控制台', href: '/dashboard', icon: '◈' },
+      { label: '资源库', href: '/dashboard', icon: '📦' },
       { label: '个人中心', href: '/profile', icon: '◎' },
-      { label: '消息中心', href: '#', icon: '◉', comingSoon: true },
-      { label: '内容管理', href: '#', icon: '⊞', comingSoon: true },
     ],
   },
   {
-    group: '工具',
+    group: '管理',
     items: [
-      { label: 'AI 服务', href: '#', icon: '◇', comingSoon: true },
-      { label: '工具中心', href: '#', icon: '▣', comingSoon: true },
-      { label: '文件管理', href: '#', icon: '⊟', comingSoon: true },
-      { label: '数据面板', href: '#', icon: '▤', comingSoon: true },
+      { label: '添加资源', href: '#', icon: '＋', comingSoon: true },
+      { label: '分类管理', href: '#', icon: '⊞', comingSoon: true },
+      { label: '收藏夹', href: '#', icon: '★', comingSoon: true },
     ],
   },
   {

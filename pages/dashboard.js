@@ -3,6 +3,7 @@ import AuthGuard from '../components/AuthGuard';
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { auth } from '../lib/auth';
+import games from '../data/games';
 
 const stagger = {
   animate: {
@@ -22,94 +23,11 @@ const fadeUp = {
   },
 };
 
-// ─── Stats Data ───
-const stats = [
-  { label: '总项目', value: 28, icon: '⊞' },
-  { label: '进行中', value: 12, icon: '◉' },
-  { label: '已完成', value: 156, icon: '✓' },
-  { label: '团队', value: 8, icon: '♢' },
-];
-
-// ─── Quick Actions ───
-const quickActions = [
-  {
-    label: '新建项目',
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <line x1="12" y1="5" x2="12" y2="19" />
-        <line x1="5" y1="12" x2="19" y2="12" />
-      </svg>
-    ),
-  },
-  {
-    label: 'AI 助手',
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 2a4 4 0 014 4v2a4 4 0 01-8 0V6a4 4 0 014-4z" />
-        <path d="M18.5 14.5A8 8 0 0012 6a8 8 0 00-6.5 8.5" />
-        <path d="M20 22v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
-      </svg>
-    ),
-  },
-  {
-    label: '上传文件',
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
-        <polyline points="17 8 12 3 7 8" />
-        <line x1="12" y1="3" x2="12" y2="15" />
-      </svg>
-    ),
-  },
-  {
-    label: '查看报表',
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <line x1="18" y1="20" x2="18" y2="10" />
-        <line x1="12" y1="20" x2="12" y2="4" />
-        <line x1="6" y1="20" x2="6" y2="14" />
-      </svg>
-    ),
-  },
-];
-
-// ─── Activity Data ───
-const activities = [
-  {
-    dot: 'bg-accent-500',
-    title: '完成了数据分析报告',
-    time: '2 分钟前',
-  },
-  {
-    dot: 'bg-emerald-500',
-    title: '创建了新项目「市场调研」',
-    time: '15 分钟前',
-  },
-  {
-    dot: 'bg-blue-500',
-    title: '邀请了团队成员 李华',
-    time: '1 小时前',
-  },
-  {
-    dot: 'bg-amber-500',
-    title: '更新了 UI 设计稿 v3.2',
-    time: '3 小时前',
-  },
-  {
-    dot: 'bg-violet-500',
-    title: '完成系统配置优化',
-    time: '昨天',
-  },
-];
-
-// ─── Chart Data ───
-const chartData = [
-  { label: 'Q1', value: 42, barColor: 'from-accent-500 to-accent-400' },
-  { label: 'Q2', value: 78, barColor: 'from-accent-500 to-accent-400' },
-  { label: 'Q3', value: 53, barColor: 'from-accent-500 to-accent-400' },
-  { label: 'Q4', value: 96, barColor: 'from-accent-500 to-accent-400' },
-];
-const maxChartValue = 100;
+const statusStyles = {
+  '可直接游玩': 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20',
+  '待测试': 'text-amber-400 bg-amber-500/10 border-amber-500/20',
+  '链接失效': 'text-red-400 bg-red-500/10 border-red-500/20',
+};
 
 export default function Dashboard() {
   const [user, setUser] = useState({ name: '用户', email: '' });
@@ -118,23 +36,15 @@ export default function Dashboard() {
     const u = auth.getUser();
     if (u) setUser(u);
   }, []);
+
   return (
     <AuthGuard>
     <Sidebar>
-      <motion.div
-        className="space-y-8"
-        variants={stagger}
-        initial="initial"
-        animate="animate"
-      >
+      <motion.div className="space-y-8" variants={stagger} initial="initial" animate="animate">
         {/* ─────── Page Header ─────── */}
         <motion.div variants={fadeUp}>
-          <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
-            控制台
-          </h1>
-          <p className="text-dark-400 text-sm mt-1">
-            欢迎回来，这里是您的总览面板
-          </p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">控制台</h1>
+          <p className="text-dark-400 text-sm mt-1">管理您的资源列表</p>
         </motion.div>
 
         {/* ─────── User Welcome Card ─────── */}
@@ -145,129 +55,71 @@ export default function Dashboard() {
             </div>
             <div className="flex-1 min-w-0">
               <h2 className="text-lg font-semibold text-white">{user.name}</h2>
-              <div className="flex items-center gap-3 mt-1 flex-wrap">
-                <span className="text-dark-400 text-sm">高级用户</span>
-                <span className="w-1 h-1 rounded-full bg-dark-500" />
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 glass rounded-full text-xs font-medium text-accent-300">
-                  <span className="w-1.5 h-1.5 rounded-full bg-accent-500" />
-                  Pro 会员
-                </span>
-              </div>
+              <p className="text-dark-400 text-sm mt-1">资源管理员</p>
             </div>
-            <a href="/test-app/settings" className="btn-ghost px-4 py-2 text-xs flex-shrink-0 hidden sm:inline-flex">
-              编辑资料
-            </a>
+            <a href="/test-app/settings" className="btn-ghost px-4 py-2 text-xs flex-shrink-0 hidden sm:inline-flex">编辑资料</a>
           </div>
         </motion.div>
 
-        {/* ─────── Stats Row ─────── */}
-        <motion.div
-          variants={fadeUp}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-4"
-        >
-          {stats.map((stat) => (
-            <div
-              key={stat.label}
-              className="glass-hover rounded-2xl p-5 text-center"
-            >
-              <div className="text-2xl mb-1 text-accent-400">{stat.icon}</div>
-              <div className="text-2xl sm:text-3xl font-bold text-white">
-                {stat.value}
-              </div>
+        {/* ─────── 资源统计 ─────── */}
+        <motion.div variants={fadeUp} className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          {[
+            { label: '资源总数', value: games.length, icon: '📦' },
+            { label: '可直接游玩', value: games.filter(g => g.status === '可直接游玩').length, icon: '✅' },
+            { label: '待测试', value: games.filter(g => g.status === '待测试').length, icon: '⏳' },
+            { label: '链接失效', value: games.filter(g => g.status === '链接失效').length, icon: '⚠️' },
+          ].map((stat) => (
+            <div key={stat.label} className="glass rounded-2xl p-5 text-center">
+              <div className="text-2xl mb-1">{stat.icon}</div>
+              <div className="text-2xl sm:text-3xl font-bold text-white">{stat.value}</div>
               <div className="text-dark-400 text-xs mt-1">{stat.label}</div>
             </div>
           ))}
         </motion.div>
 
-        {/* ─────── Quick Actions ─────── */}
-        <motion.div
-          variants={fadeUp}
-          className="grid grid-cols-2 sm:grid-cols-4 gap-3"
-        >
-          {quickActions.map((action) => (
-            <div
-              key={action.label}
-              className="glass-hover rounded-2xl p-4 flex items-center gap-3 text-sm font-medium text-dark-500 cursor-default opacity-60 hover:opacity-80 transition-opacity"
-            >
-              <span className="w-9 h-9 rounded-xl bg-white/[0.03] flex items-center justify-center text-dark-500 flex-shrink-0">
-                {action.icon}
-              </span>
-              {action.label}
-            </div>
-          ))}
-        </motion.div>
-
-        {/* ─────── Bottom Row: Activity + Chart ─────── */}
-        <motion.div
-          variants={fadeUp}
-          className="grid grid-cols-1 lg:grid-cols-5 gap-6"
-        >
-          {/* Recent Activity - takes 3 cols */}
-          <div className="lg:col-span-3 glass-card rounded-2xl p-6">
+        {/* ─────── 全部资源列表 ─────── */}
+        <motion.div variants={fadeUp}>
+          <div className="glass-card rounded-2xl p-6">
             <h3 className="text-sm font-semibold text-white mb-6 flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-accent-500" />
-              最近活动
+              全部资源
+              <span className="text-dark-500 text-xs font-normal ml-1">共 {games.length} 项</span>
             </h3>
-
-            <div className="space-y-0">
-              {activities.map((item, i) => (
-                <div key={i} className="flex gap-4 relative pb-6 last:pb-0">
-                  {/* Timeline line */}
-                  {i < activities.length - 1 && (
-                    <div className="absolute left-[7px] top-4 bottom-0 w-px bg-white/[0.06]" />
-                  )}
-
-                  {/* Dot */}
-                  <div className="relative flex-shrink-0 mt-1">
-                    <div className={`w-3.5 h-3.5 rounded-full ${item.dot} shadow-sm`} />
-                  </div>
-
-                  {/* Content */}
+            <div className="space-y-3">
+              {games.map((game) => (
+                <div key={game.id} className="flex flex-col sm:flex-row sm:items-center gap-3 p-4 rounded-xl bg-white/[0.02] border border-white/[0.04] hover:bg-white/[0.04] transition-colors">
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm text-dark-200">{item.title}</p>
-                    <p className="text-xs text-dark-500 mt-0.5">{item.time}</p>
+                    <div className="flex items-center gap-2 mb-1">
+                      <h4 className="text-sm font-medium text-white">{game.title}</h4>
+                      <span className={`px-2 py-0.5 rounded-md text-[10px] font-medium border ${statusStyles[game.status] || 'text-dark-400 bg-white/[0.04] border-white/[0.06]'}`}>
+                        {game.status}
+                      </span>
+                    </div>
+                    <p className="text-xs text-dark-400 mb-1">{game.description}</p>
+                    <div className="flex items-center gap-2">
+                      <span className="px-2 py-0.5 rounded-md bg-white/[0.04] border border-white/[0.06] text-dark-500 text-[10px]">{game.category}</span>
+                      <span className="text-dark-600 text-[10px]">添加于 {game.addedAt}</span>
+                    </div>
                   </div>
+                  <a
+                    href={game.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-accent px-4 py-2 text-xs flex-shrink-0 self-start sm:self-center inline-flex items-center gap-1.5"
+                  >
+                    <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
+                      <polyline points="15 3 21 3 21 9" />
+                      <line x1="10" y1="14" x2="21" y2="3" />
+                    </svg>
+                    访问链接
+                  </a>
                 </div>
               ))}
             </div>
-          </div>
-
-          {/* Analytics Preview - takes 2 cols */}
-          <div className="lg:col-span-2 glass-card rounded-2xl p-6">
-            <h3 className="text-sm font-semibold text-white mb-2 flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-accent-500" />
-              数据概览
-            </h3>
-
-            {/* Simple CSS Bar Chart */}
-            <div className="mt-8 flex items-end justify-between gap-3 h-48 px-1">
-              {chartData.map((bar) => {
-                const heightPct = (bar.value / maxChartValue) * 100;
-                return (
-                  <div key={bar.label} className="flex flex-col items-center gap-2 flex-1 h-full justify-end">
-                    {/* Value label */}
-                    <span className="text-xs font-medium text-dark-300">
-                      {bar.value}
-                    </span>
-
-                    {/* Bar */}
-                    <div className="w-full max-w-[52px] h-full flex items-end">
-                      <motion.div
-                        className={`w-full rounded-lg bg-gradient-to-t ${bar.barColor} shadow-lg shadow-accent-500/10`}
-                        initial={{ height: 0 }}
-                        animate={{ height: `${heightPct}%` }}
-                        transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-                      />
-                    </div>
-
-                    {/* Axis label */}
-                    <span className="text-xs text-dark-500 font-medium">
-                      {bar.label}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
+            <p className="text-dark-500 text-xs text-center mt-6">
+              资源数据在 data/games.js 中管理，直接编辑即可更新列表
+            </p>
           </div>
         </motion.div>
       </motion.div>
