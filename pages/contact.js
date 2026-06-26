@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { FadeInView, GlassCard } from '../components/Shared';
+import { FadeInView, GlassCard, ComingSoonBadge } from '../components/Shared';
 
 const faqData = [
   {
@@ -63,6 +63,12 @@ function FaqItem({ question, answer, isOpen, onToggle }) {
 
 export default function Contact() {
   const [openIndex, setOpenIndex] = useState(null);
+  const [toast, setToast] = useState(null);
+
+  const showToast = (msg) => {
+    setToast(msg);
+    setTimeout(() => setToast(null), 2500);
+  };
 
   const handleToggle = (index) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -164,6 +170,7 @@ export default function Contact() {
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
+                  showToast('消息发送功能开发中');
                 }}
                 className="space-y-5"
               >
@@ -234,6 +241,23 @@ export default function Contact() {
       </section>
 
       <Footer />
+
+      {/* Toast */}
+      <AnimatePresence>
+        {toast && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 px-5 py-3 glass rounded-xl border border-amber-500/20 shadow-lg"
+          >
+            <span className="inline-flex items-center gap-2 text-xs font-medium text-amber-400">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+              {toast}
+            </span>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main>
   );
 }

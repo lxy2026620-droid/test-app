@@ -1,15 +1,26 @@
 import { useState } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false);
+  const [toast, setToast] = useState(null);
+
+  const showToast = (msg) => {
+    setToast(msg);
+    setTimeout(() => setToast(null), 2500);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // handle login logic
+    showToast("登录功能开发中");
+  };
+
+  const handleGithubLogin = (e) => {
+    e.preventDefault();
+    showToast("GitHub 登录功能开发中");
   };
 
   return (
@@ -93,12 +104,12 @@ export default function Login() {
               <label className="block text-sm font-medium text-gray-300">
                 密码
               </label>
-              <Link
-                href="#"
-                className="text-xs text-indigo-400 hover:text-indigo-300 transition-colors"
+              <span
+                onClick={() => showToast("忘记密码功能开发中")}
+                className="text-xs text-dark-400 hover:text-dark-300 transition-colors cursor-pointer"
               >
                 忘记密码？
-              </Link>
+              </span>
             </div>
             <input
               type="password"
@@ -170,7 +181,8 @@ export default function Login() {
         <motion.button
           whileHover={{ scale: 1.01 }}
           whileTap={{ scale: 0.99 }}
-          className="w-full flex items-center justify-center gap-2.5 rounded-xl border border-gray-700 bg-transparent py-2.5 text-sm font-medium text-gray-300 hover:bg-gray-800/50 hover:text-white transition-all duration-200"
+          onClick={handleGithubLogin}
+          className="w-full flex items-center justify-center gap-2.5 rounded-xl border border-gray-700 bg-transparent py-2.5 text-sm font-medium text-gray-500 hover:bg-gray-800/50 hover:text-gray-400 transition-all duration-200 cursor-default"
         >
           <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
             <path
@@ -193,6 +205,23 @@ export default function Login() {
           </Link>
         </p>
       </motion.div>
+
+      {/* Toast */}
+      <AnimatePresence>
+        {toast && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 px-5 py-3 glass rounded-xl border border-amber-500/20 shadow-lg"
+          >
+            <span className="inline-flex items-center gap-2 text-xs font-medium text-amber-400">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+              {toast}
+            </span>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

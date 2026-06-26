@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ComingSoonBadge } from './Shared';
 
 const sidebarItems = [
   {
@@ -9,24 +10,24 @@ const sidebarItems = [
     items: [
       { label: '控制台', href: '/dashboard', icon: '◈' },
       { label: '个人中心', href: '/profile', icon: '◎' },
-      { label: '消息中心', href: '#', icon: '◉' },
-      { label: '内容管理', href: '#', icon: '⊞' },
+      { label: '消息中心', href: '#', icon: '◉', comingSoon: true },
+      { label: '内容管理', href: '#', icon: '⊞', comingSoon: true },
     ],
   },
   {
     group: '工具',
     items: [
-      { label: 'AI 服务', href: '#', icon: '◇' },
-      { label: '工具中心', href: '#', icon: '▣' },
-      { label: '文件管理', href: '#', icon: '⊟' },
-      { label: '数据面板', href: '#', icon: '▤' },
+      { label: 'AI 服务', href: '#', icon: '◇', comingSoon: true },
+      { label: '工具中心', href: '#', icon: '▣', comingSoon: true },
+      { label: '文件管理', href: '#', icon: '⊟', comingSoon: true },
+      { label: '数据面板', href: '#', icon: '▤', comingSoon: true },
     ],
   },
   {
     group: '系统',
     items: [
       { label: '设置', href: '/settings', icon: '⚙' },
-      { label: '帮助', href: '#', icon: '?' },
+      { label: '帮助', href: '#', icon: '?', comingSoon: true },
     ],
   },
 ];
@@ -77,14 +78,22 @@ export default function Sidebar({ children }) {
                       className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
                         isActive
                           ? 'bg-white/[0.06] text-white'
+                          : item.comingSoon
+                          ? 'text-dark-400 cursor-default'
                           : 'text-dark-300 hover:text-white hover:bg-white/[0.03]'
                       }`}
                       title={collapsed ? item.label : undefined}
+                      onClick={item.comingSoon ? (e) => e.preventDefault() : undefined}
                     >
                       <span className="w-4 h-4 flex items-center justify-center flex-shrink-0 text-xs">
                         {item.icon}
                       </span>
-                      {!collapsed && <span>{item.label}</span>}
+                      {!collapsed && (
+                        <span className="flex-1 flex items-center justify-between gap-2">
+                          <span>{item.label}</span>
+                          {item.comingSoon && <ComingSoonBadge />}
+                        </span>
+                      )}
                     </Link>
                   );
                 })}
@@ -176,15 +185,20 @@ export default function Sidebar({ children }) {
                         <Link
                           key={item.label}
                           href={item.href}
-                          onClick={() => setMobileOpen(false)}
+                          onClick={() => { if (!item.comingSoon) setMobileOpen(false); }}
                           className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
                             router.pathname === item.href
                               ? 'bg-white/[0.06] text-white'
+                              : item.comingSoon
+                              ? 'text-dark-400 cursor-default'
                               : 'text-dark-300 hover:text-white hover:bg-white/[0.03]'
                           }`}
                         >
                           <span className="w-4 h-4 flex items-center justify-center text-xs">{item.icon}</span>
-                          {item.label}
+                          <span className="flex-1 flex items-center justify-between gap-2">
+                            <span>{item.label}</span>
+                            {item.comingSoon && <ComingSoonBadge />}
+                          </span>
                         </Link>
                       ))}
                     </div>

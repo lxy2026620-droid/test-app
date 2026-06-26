@@ -1,6 +1,7 @@
 import Sidebar from '../components/Sidebar';
-import { FadeInView } from '../components/Shared';
-import { motion } from 'framer-motion';
+import { FadeInView, ComingSoonBadge } from '../components/Shared';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
 
 const infoFields = [
   { label: '姓名', value: '王晓' },
@@ -57,6 +58,13 @@ const achievements = [
 const skillTags = ['产品设计', '用户体验', '数据分析', '项目管理', 'AI 应用', '团队协作'];
 
 export default function Profile() {
+  const [toast, setToast] = useState(null);
+
+  const showToast = (msg) => {
+    setToast(msg);
+    setTimeout(() => setToast(null), 2000);
+  };
+
   return (
     <Sidebar>
       {/* ─────────── Profile Header ─────────── */}
@@ -70,7 +78,10 @@ export default function Profile() {
             <p className="text-dark-400 text-sm mb-1">wangxiao@nova.com</p>
             <p className="text-dark-500 text-xs">2025年8月加入</p>
           </div>
-          <button className="btn-ghost px-5 py-2.5 text-sm flex-shrink-0">
+          <button
+            onClick={() => showToast('编辑资料功能开发中')}
+            className="btn-ghost px-5 py-2.5 text-sm flex-shrink-0"
+          >
             <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" />
               <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
@@ -215,6 +226,23 @@ export default function Profile() {
           </div>
         </div>
       </FadeInView>
+
+      {/* Toast */}
+      <AnimatePresence>
+        {toast && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 px-5 py-3 glass rounded-xl border border-amber-500/20 shadow-lg"
+          >
+            <span className="inline-flex items-center gap-2 text-xs font-medium text-amber-400">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+              {toast}
+            </span>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </Sidebar>
   );
 }

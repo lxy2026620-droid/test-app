@@ -1,34 +1,80 @@
 =========================================
-  测试应用 - 更新与部署说明
+  Nova 高端科技平台 - 更新与部署说明
 =========================================
 
 ■ 项目目录
   D:\文件夹\新项目\test-app\
 
-■ 核心文件
-  index.html          ← 主页面文件，所有代码写在这里
-  更新说明.txt         ← 本文件
+■ 技术栈
+  - Next.js 14 (静态导出)
+  - React 18
+  - Tailwind CSS 3
+  - Framer Motion 11
+  - 部署：GitHub Pages + GitHub Actions
+
+■ 核心文件结构
+  pages/              ← 页面文件（.js）
+    index.js          ← 首页（Landing Page）
+    dashboard.js      ← 控制台
+    profile.js        ← 个人中心
+    settings.js       ← 设置
+    login.js          ← 登录
+    register.js       ← 注册
+    about.js          ← 关于
+    contact.js        ← 联系
+  components/         ← 共用组件
+    Navbar.js         ← 导航栏
+    Footer.js         ← 页脚
+    Sidebar.js        ← 侧边栏（Dashboard/Profile/Settings共用）
+    Shared.js         ← 通用组件（FadeInView, GlassCard, StatCard等）
+  styles/
+    globals.css       ← 全局样式 + Tailwind
+  .github/workflows/
+    deploy.yml        ← GitHub Actions 自动构建部署
 
 ■ 公网访问链接（永久不变）
   https://lxy2026620-droid.github.io/test-app/
 
-■ 如何更新功能
-  1. 修改 index.html 里的内容（加功能、改样式等）
-  2. 保存文件
-  3. 告诉 AI："更新并推送 test-app"
-  4. AI 会自动执行 git commit + git push
-  5. GitHub Pages 自动部署，1-2 分钟后公网链接自动更新
+■ 页面列表
+  https://lxy2026620-droid.github.io/test-app/           ← 首页
+  https://lxy2026620-droid.github.io/test-app/dashboard  ← 控制台
+  https://lxy2026620-droid.github.io/test-app/profile    ← 个人中心
+  https://lxy2026620-droid.github.io/test-app/settings   ← 设置
+  https://lxy2026620-droid.github.io/test-app/login      ← 登录
+  https://lxy2026620-droid.github.io/test-app/register   ← 注册
+  https://lxy2026620-droid.github.io/test-app/about      ← 关于
+  https://lxy2026620-droid.github.io/test-app/contact    ← 联系
 
-■ 手动更新步骤（AI 不在时可自行操作）
-  cd D:\文件夹\新项目\test-app
-  git add -A
-  git commit -m "更新内容描述"
-  git push
+■ 如何更新功能（开发模式）
+  1. 需要开发时，先运行：npm run dev
+  2. 浏览器访问 http://localhost:3000/test-app 查看效果
+  3. 修改 pages/ 或 components/ 下的文件
+  4. 代码热更新，浏览器自动刷新
+
+■ 如何部署到公网
+  方法一（推荐）：直接推送到 GitHub
+    git add -A
+    git commit -m "更新说明"
+    git push
+    → GitHub Actions 自动构建并部署
+    → 约 1-2 分钟后公网链接自动更新
+
+  方法二：告诉 AI
+    "更新并推送 test-app"
+    AI 会自动完成上述步骤
+
+■ 设计风格
+  - 深色模式（唯一模式）
+  - 玻璃拟态（Glassmorphism）
+  - 大量留白 + 高级排版
+  - 克制动画（Framer Motion）
+  - 完全响应式
 
 ■ 注意事项
-  - 这是纯前端静态应用，不需要服务器
-  - 用户通过公网链接直接访问，无需安装任何东西
-  - 公网链接永久不变：https://lxy2026620-droid.github.io/test-app/
-  - GitHub 仓库地址：https://github.com/lxy2026620-droid/test-app
+  - 所有数据均为模拟数据，无后端
+  - 纯静态导出，不需要服务器
+  - 用户通过公网链接直接访问，无需安装
+  - 每次 git push 后等待 1-2 分钟部署完成
+  - GitHub 仓库：https://github.com/lxy2026620-droid/test-app
 
 =========================================
