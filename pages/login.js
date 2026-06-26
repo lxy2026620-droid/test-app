@@ -10,7 +10,7 @@ export default function Login() {
     e.preventDefault();
     const user = createGuestUser("用户", "user@reshub.local");
     auth.login(user);
-    router.push("/test-app/dashboard");
+    router.push("/test-app/");
   };
 
   return (

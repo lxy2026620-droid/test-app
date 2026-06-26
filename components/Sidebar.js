@@ -8,8 +8,7 @@ const sidebarItems = [
   {
     group: '导航',
     items: [
-      { label: '控制台', href: '/dashboard', icon: '◈' },
-      { label: '资源库', href: '/dashboard', icon: '📦' },
+      { label: '主页', href: '/', icon: '◈' },
       { label: '个人中心', href: '/profile', icon: '◎' },
     ],
   },
@@ -25,7 +24,7 @@ const sidebarItems = [
     group: '系统',
     items: [
       { label: '设置', href: '/settings', icon: '⚙' },
-      { label: '帮助', href: '#', icon: '?', comingSoon: true },
+      { label: '关于', href: '/about', icon: '◎' },
     ],
   },
 ];
@@ -117,7 +116,7 @@ export default function Sidebar({ children }) {
             ) : null;
           })()}
           <button
-            onClick={() => { auth.logout(); window.location.href = '/test-app/'; }}
+            onClick={() => { auth.logout(); window.location.href = '/test-app/login'; }}
             className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-medium text-dark-400 hover:text-amber-400 hover:bg-white/[0.03] transition-all duration-200"
           >
             <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

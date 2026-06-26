@@ -4,10 +4,9 @@ import { useRouter } from 'next/router';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const navItems = [
-  { label: '首页', href: '/' },
-  { label: '控制台', href: '/dashboard' },
+  { label: '主页', href: '/' },
+  { label: '设置', href: '/settings' },
   { label: '关于', href: '/about' },
-  { label: '联系', href: '/contact' },
 ];
 
 export default function Navbar() {
@@ -62,7 +61,7 @@ export default function Navbar() {
         {/* Entry Button */}
         <div className="hidden md:flex items-center gap-3">
           <Link href="/test-app/login" className="btn-primary px-4 py-2 text-xs">
-            进入控制台
+            进入主页
           </Link>
         </div>
 
@@ -105,7 +104,7 @@ export default function Navbar() {
               ))}
               <div className="h-px bg-white/[0.06] my-2" />
           <Link href="/test-app/login" onClick={() => setMobileOpen(false)} className="btn-primary w-full text-center text-sm">
-            进入控制台
+            进入主页
           </Link>
             </div>
           </motion.div>
