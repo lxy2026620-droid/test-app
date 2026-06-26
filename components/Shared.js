@@ -66,17 +66,15 @@ export function FeatureCard({ icon, title, description, delay = 0, comingSoon = 
       viewport={{ once: true, margin: '-80px' }}
       transition={{ duration: 0.6, delay, ease: [0.25, 0.1, 0.25, 1] }}
     >
-      <GlassCard className={`p-8 h-full group cursor-default ${comingSoon ? 'relative' : ''}`}>
-        {comingSoon && (
-          <div className="absolute top-4 right-4 z-10">
-            <ComingSoonBadge />
-          </div>
-        )}
+      <GlassCard className={`p-8 h-full group cursor-default ${comingSoon ? 'opacity-60 hover:opacity-80' : ''}`}>
         <div className="w-10 h-10 rounded-xl bg-accent-500/10 border border-accent-500/20 flex items-center justify-center mb-5 text-accent-400 group-hover:bg-accent-500/20 group-hover:border-accent-500/30 transition-all duration-300">
           {icon}
         </div>
         <h3 className="text-white font-semibold text-lg mb-2">{title}</h3>
         <p className="text-dark-400 text-sm leading-relaxed">{description}</p>
+        {comingSoon && (
+          <p className="text-dark-500 text-xs mt-3 italic">功能开发中</p>
+        )}
       </GlassCard>
     </motion.div>
   );

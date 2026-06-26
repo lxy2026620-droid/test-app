@@ -1,5 +1,5 @@
 import Sidebar from '../components/Sidebar';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useState } from 'react';
 
 const stagger = {
@@ -77,12 +77,6 @@ export default function Settings() {
   const [notifications, setNotifications] = useState(
     notificationItems.map((item) => item.defaultOn)
   );
-  const [toast, setToast] = useState(null);
-
-  const showToast = (msg) => {
-    setToast(msg);
-    setTimeout(() => setToast(null), 2000);
-  };
 
   const toggleNotification = (index) => {
     setNotifications((prev) => {
@@ -155,12 +149,10 @@ export default function Settings() {
             </div>
 
             <div className="flex justify-end">
-              <button
-                onClick={() => showToast('保存功能开发中')}
-                className="btn-accent px-6 py-2.5"
-              >
-                修改
-              </button>
+              <span className="btn-accent px-6 py-2.5 inline-flex items-center opacity-50 cursor-default text-xs gap-1.5">
+                <span className="text-[10px]">⏳</span>
+                保存
+              </span>
             </div>
           </div>
         </motion.div>
@@ -212,12 +204,10 @@ export default function Settings() {
                   建议定期更换密码以保障账户安全
                 </p>
               </div>
-              <button
-                onClick={() => showToast('修改密码功能开发中')}
-                className="btn-ghost px-5 py-2 text-xs flex-shrink-0"
-              >
+              <span className="btn-ghost px-5 py-2 text-xs flex-shrink-0 inline-flex items-center opacity-50 cursor-default gap-1">
+                <span className="text-[10px]">⏳</span>
                 修改密码
-              </button>
+              </span>
             </div>
 
             <div className="border-t border-white/[0.04]" />
@@ -235,12 +225,10 @@ export default function Settings() {
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
                   未启用
                 </span>
-                <button
-                  onClick={() => showToast('两步验证功能开发中')}
-                  className="btn-accent px-5 py-2 text-xs"
-                >
+                <span className="btn-accent px-5 py-2 text-xs inline-flex items-center opacity-50 cursor-default gap-1">
+                  <span className="text-[10px]">⏳</span>
                   启用
-                </button>
+                </span>
               </div>
             </div>
 
@@ -318,23 +306,6 @@ export default function Settings() {
           </div>
         </motion.div>
       </motion.div>
-
-      {/* Toast */}
-      <AnimatePresence>
-        {toast && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 10 }}
-            className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 px-5 py-3 glass rounded-xl border border-amber-500/20 shadow-lg"
-          >
-            <span className="inline-flex items-center gap-2 text-xs font-medium text-amber-400">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-              {toast}
-            </span>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </Sidebar>
   );
 }

@@ -1,26 +1,14 @@
 import { useState } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false);
-  const [toast, setToast] = useState(null);
-
-  const showToast = (msg) => {
-    setToast(msg);
-    setTimeout(() => setToast(null), 2500);
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    showToast("登录功能开发中");
-  };
-
-  const handleGithubLogin = (e) => {
-    e.preventDefault();
-    showToast("GitHub 登录功能开发中");
   };
 
   return (
@@ -104,10 +92,7 @@ export default function Login() {
               <label className="block text-sm font-medium text-gray-300">
                 密码
               </label>
-              <span
-                onClick={() => showToast("忘记密码功能开发中")}
-                className="text-xs text-dark-400 hover:text-dark-300 transition-colors cursor-pointer"
-              >
+              <span className="text-xs text-dark-500 cursor-default">
                 忘记密码？
               </span>
             </div>
@@ -164,7 +149,7 @@ export default function Login() {
             type="submit"
             whileHover={{ scale: 1.01 }}
             whileTap={{ scale: 0.99 }}
-            className="btn-accent w-full"
+            className="btn-accent w-full opacity-60 cursor-default"
           >
             登录
           </motion.button>
@@ -178,11 +163,8 @@ export default function Login() {
         </div>
 
         {/* GitHub login */}
-        <motion.button
-          whileHover={{ scale: 1.01 }}
-          whileTap={{ scale: 0.99 }}
-          onClick={handleGithubLogin}
-          className="w-full flex items-center justify-center gap-2.5 rounded-xl border border-gray-700 bg-transparent py-2.5 text-sm font-medium text-gray-500 hover:bg-gray-800/50 hover:text-gray-400 transition-all duration-200 cursor-default"
+        <div
+          className="w-full flex items-center justify-center gap-2.5 rounded-xl border border-gray-700/50 bg-transparent py-2.5 text-sm font-medium text-gray-600 cursor-default"
         >
           <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
             <path
@@ -192,7 +174,7 @@ export default function Login() {
             />
           </svg>
           使用 GitHub 登录
-        </motion.button>
+        </div>
 
         {/* Register link */}
         <p className="mt-6 text-center text-sm text-gray-500">
@@ -206,22 +188,6 @@ export default function Login() {
         </p>
       </motion.div>
 
-      {/* Toast */}
-      <AnimatePresence>
-        {toast && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 10 }}
-            className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 px-5 py-3 glass rounded-xl border border-amber-500/20 shadow-lg"
-          >
-            <span className="inline-flex items-center gap-2 text-xs font-medium text-amber-400">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-              {toast}
-            </span>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   );
 }

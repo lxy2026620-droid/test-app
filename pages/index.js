@@ -4,9 +4,8 @@
 
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { FadeInView, GlassCard, StatCard, FeatureCard, ComingSoonBadge } from '../components/Shared';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useState } from 'react';
+import { FadeInView, GlassCard, StatCard, FeatureCard } from '../components/Shared';
+import { motion } from 'framer-motion';
 
 const stagger = {
   animate: {
@@ -118,12 +117,6 @@ const testimonials = [
 ];
 
 export default function Home() {
-  const [toast, setToast] = useState(null);
-
-  const showToast = (msg) => {
-    setToast(msg);
-    setTimeout(() => setToast(null), 2500);
-  };
   return (
     <div className="min-h-screen bg-dark-950 overflow-hidden">
       <Navbar />
@@ -200,21 +193,15 @@ export default function Home() {
           </motion.p>
 
           <motion.div variants={fadeUp} className="flex items-center justify-center gap-4 flex-wrap">
-            <button
-              onClick={() => showToast('即将开放，敬请期待')}
-              className="btn-accent px-8 py-3.5 text-base"
-            >
+            <a href="/test-app/register" className="btn-accent px-8 py-3.5 text-base inline-flex items-center">
               开始使用
               <svg className="ml-2 w-4 h-4" viewBox="0 0 16 16" fill="none">
                 <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
-            </button>
-            <button
-              onClick={() => showToast('即将开放，敬请期待')}
-              className="btn-ghost px-8 py-3.5 text-base"
-            >
+            </a>
+            <a href="#features" className="btn-ghost px-8 py-3.5 text-base inline-flex items-center">
               了解更多
-            </button>
+            </a>
           </motion.div>
         </motion.div>
 
@@ -235,7 +222,7 @@ export default function Home() {
       </section>
 
       {/* ─────────── FEATURES ─────────── */}
-      <section className="relative py-32 px-6">
+      <section id="features" className="relative py-32 px-6">
         <div className="max-w-6xl mx-auto">
           <FadeInView className="text-center mb-20">
             <h2 className="section-title mb-4">强大功能</h2>
@@ -340,40 +327,17 @@ export default function Home() {
             加入数千家领先企业，体验 AI 驱动的未来工作平台
           </p>
           <div className="flex items-center justify-center gap-4 flex-wrap">
-            <button
-              onClick={() => showToast('即将开放，敬请期待')}
-              className="btn-accent px-10 py-4 text-base"
-            >
+            <a href="/test-app/register" className="btn-accent px-10 py-4 text-base inline-flex items-center">
               免费开始使用
-            </button>
-            <button
-              onClick={() => showToast('即将开放，敬请期待')}
-              className="btn-ghost px-10 py-4 text-base"
-            >
+            </a>
+            <a href="/test-app/contact" className="btn-ghost px-10 py-4 text-base inline-flex items-center">
               预约演示
-            </button>
+            </a>
           </div>
         </FadeInView>
       </section>
 
       <Footer />
-
-      {/* Global Toast */}
-      <AnimatePresence>
-        {toast && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 10 }}
-            className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 px-5 py-3 glass rounded-xl border border-amber-500/20 shadow-lg"
-          >
-            <span className="inline-flex items-center gap-2 text-xs font-medium text-amber-400">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-              {toast}
-            </span>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   );
 }

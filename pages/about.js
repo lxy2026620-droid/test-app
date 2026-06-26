@@ -1,8 +1,7 @@
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { FadeInView, GlassCard, ComingSoonBadge } from '../components/Shared';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useState } from 'react';
+import { FadeInView, GlassCard } from '../components/Shared';
+import { motion } from 'framer-motion';
 
 const stagger = {
   animate: {
@@ -98,13 +97,6 @@ const milestones = [
 ];
 
 export default function About() {
-  const [toast, setToast] = useState(null);
-
-  const showToast = (msg) => {
-    setToast(msg);
-    setTimeout(() => setToast(null), 2500);
-  };
-
   return (
     <div className="min-h-screen bg-dark-950 pt-16">
       <Navbar />
@@ -310,40 +302,17 @@ export default function About() {
             无论你是开发者、设计师还是创业者，Nova 都欢迎你的加入
           </p>
           <div className="flex items-center justify-center gap-4 flex-wrap">
-            <button
-              onClick={() => showToast('即将开放，敬请期待')}
-              className="btn-accent px-10 py-4 text-base"
-            >
+            <a href="/test-app/register" className="btn-accent px-10 py-4 text-base inline-flex items-center">
               加入我们
-            </button>
-            <button
-              onClick={() => showToast('即将开放，敬请期待')}
-              className="btn-ghost px-10 py-4 text-base"
-            >
+            </a>
+            <a href="/test-app/contact" className="btn-ghost px-10 py-4 text-base inline-flex items-center">
               联系我们
-            </button>
+            </a>
           </div>
         </FadeInView>
       </section>
 
       <Footer />
-
-      {/* Toast */}
-      <AnimatePresence>
-        {toast && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 10 }}
-            className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 px-5 py-3 glass rounded-xl border border-amber-500/20 shadow-lg"
-          >
-            <span className="inline-flex items-center gap-2 text-xs font-medium text-amber-400">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-              {toast}
-            </span>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   );
 }

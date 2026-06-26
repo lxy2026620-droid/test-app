@@ -2,7 +2,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ComingSoonBadge } from './Shared';
 
 const sidebarItems = [
   {
@@ -89,9 +88,9 @@ export default function Sidebar({ children }) {
                         {item.icon}
                       </span>
                       {!collapsed && (
-                        <span className="flex-1 flex items-center justify-between gap-2">
-                          <span>{item.label}</span>
-                          {item.comingSoon && <ComingSoonBadge />}
+                      <span className="flex-1 flex items-center justify-between gap-2">
+                          <span className={item.comingSoon ? 'opacity-40' : ''}>{item.label}</span>
+                          {item.comingSoon && <span className="text-[10px] text-dark-500 italic">开发中</span>}
                         </span>
                       )}
                     </Link>
@@ -196,8 +195,8 @@ export default function Sidebar({ children }) {
                         >
                           <span className="w-4 h-4 flex items-center justify-center text-xs">{item.icon}</span>
                           <span className="flex-1 flex items-center justify-between gap-2">
-                            <span>{item.label}</span>
-                            {item.comingSoon && <ComingSoonBadge />}
+                            <span className={item.comingSoon ? 'opacity-40' : ''}>{item.label}</span>
+                            {item.comingSoon && <span className="text-[10px] text-dark-500 italic">开发中</span>}
                           </span>
                         </Link>
                       ))}

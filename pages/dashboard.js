@@ -1,7 +1,5 @@
 import Sidebar from '../components/Sidebar';
-import { ComingSoonBadge } from '../components/Shared';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useState } from 'react';
+import { motion } from 'framer-motion';
 
 const stagger = {
   animate: {
@@ -111,12 +109,6 @@ const chartData = [
 const maxChartValue = 100;
 
 export default function Dashboard() {
-  const [toast, setToast] = useState(null);
-
-  const showToast = (msg) => {
-    setToast(msg);
-    setTimeout(() => setToast(null), 2000);
-  };
   return (
     <Sidebar>
       <motion.div
@@ -152,12 +144,9 @@ export default function Dashboard() {
                 </span>
               </div>
             </div>
-            <button
-              className="btn-ghost px-4 py-2 text-xs flex-shrink-0 hidden sm:inline-flex"
-              onClick={() => showToast('编辑资料功能开发中')}
-            >
+            <a href="/test-app/settings" className="btn-ghost px-4 py-2 text-xs flex-shrink-0 hidden sm:inline-flex">
               编辑资料
-            </button>
+            </a>
           </div>
         </motion.div>
 
@@ -186,16 +175,15 @@ export default function Dashboard() {
           className="grid grid-cols-2 sm:grid-cols-4 gap-3"
         >
           {quickActions.map((action) => (
-            <button
+            <div
               key={action.label}
-              onClick={() => showToast('功能开发中，敬请期待')}
-              className="glass-hover rounded-2xl p-4 flex items-center gap-3 text-sm font-medium text-dark-400 hover:text-dark-400 transition-colors cursor-default relative group"
+              className="glass-hover rounded-2xl p-4 flex items-center gap-3 text-sm font-medium text-dark-500 cursor-default opacity-60 hover:opacity-80 transition-opacity"
             >
-              <span className="w-9 h-9 rounded-xl bg-white/[0.04] flex items-center justify-center text-accent-400/60 flex-shrink-0">
+              <span className="w-9 h-9 rounded-xl bg-white/[0.03] flex items-center justify-center text-dark-500 flex-shrink-0">
                 {action.icon}
               </span>
               {action.label}
-            </button>
+            </div>
           ))}
         </motion.div>
 
@@ -273,23 +261,6 @@ export default function Dashboard() {
           </div>
         </motion.div>
       </motion.div>
-
-      {/* Toast */}
-      <AnimatePresence>
-        {toast && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 10 }}
-            className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 px-5 py-3 glass rounded-xl border border-amber-500/20 shadow-lg"
-          >
-            <span className="inline-flex items-center gap-2 text-xs font-medium text-amber-400">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-              {toast}
-            </span>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </Sidebar>
   );
 }

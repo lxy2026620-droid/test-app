@@ -1,18 +1,12 @@
 import { useState } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 export default function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [agreed, setAgreed] = useState(false);
-  const [toast, setToast] = useState(null);
-
-  const showToast = (msg) => {
-    setToast(msg);
-    setTimeout(() => setToast(null), 2500);
-  };
 
   const getStrength = (pw) => {
     if (pw.length === 0) return 0;
@@ -33,7 +27,6 @@ export default function Register() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    showToast("注册功能开发中");
   };
 
   return (
@@ -227,9 +220,7 @@ export default function Register() {
             whileHover={{ scale: 1.01 }}
             whileTap={{ scale: 0.99 }}
             disabled={!agreed}
-            className={`btn-accent w-full ${
-              !agreed ? "opacity-50 cursor-not-allowed" : ""
-            }`}
+            className={`btn-accent w-full opacity-60 cursor-default`}
           >
             创建账户
           </motion.button>
@@ -246,23 +237,6 @@ export default function Register() {
           </Link>
         </p>
       </motion.div>
-
-      {/* Toast */}
-      <AnimatePresence>
-        {toast && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 10 }}
-            className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 px-5 py-3 glass rounded-xl border border-amber-500/20 shadow-lg"
-          >
-            <span className="inline-flex items-center gap-2 text-xs font-medium text-amber-400">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-              {toast}
-            </span>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   );
 }
