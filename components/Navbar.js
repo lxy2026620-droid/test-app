@@ -60,7 +60,7 @@ export default function Navbar() {
 
         {/* Entry Button */}
         <div className="hidden md:flex items-center gap-3">
-          <Link href="/test-app/login" className="btn-primary px-4 py-2 text-xs">
+          <Link href="/login" className="btn-primary px-4 py-2 text-xs">
             进入主页
           </Link>
         </div>
@@ -103,7 +103,7 @@ export default function Navbar() {
                 </Link>
               ))}
               <div className="h-px bg-white/[0.06] my-2" />
-          <Link href="/test-app/login" onClick={() => setMobileOpen(false)} className="btn-primary w-full text-center text-sm">
+          <Link href="/login" onClick={() => setMobileOpen(false)} className="btn-primary w-full text-center text-sm">
             进入主页
           </Link>
             </div>

@@ -43,7 +43,7 @@ export default function Dashboard() {
       <motion.div className="space-y-8" variants={stagger} initial="initial" animate="animate">
         {/* ─────── Page Header ─────── */}
         <motion.div variants={fadeUp}>
-          <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">控制台</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">主页</h1>
           <p className="text-dark-400 text-sm mt-1">管理您的资源列表</p>
         </motion.div>
 

@@ -7,7 +7,7 @@ export default function AuthGuard({ children }) {
 
   useEffect(() => {
     if (!auth.isLoggedIn()) {
-      router.replace('/test-app/login');
+      router.replace('/login');
     }
   }, [router]);
 

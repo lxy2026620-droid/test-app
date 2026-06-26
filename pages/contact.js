@@ -6,19 +6,19 @@ import { FadeInView, GlassCard } from '../components/Shared';
 
 const faqData = [
   {
-    question: '如何开始使用 Nova？',
+    question: '如何使用 ResHub？',
     answer:
-      '注册 Nova 账号后，您可以直接在控制台创建您的第一个项目。我们提供了丰富的模板和文档，帮助您快速上手。您也可以预约我们的技术团队进行一对一引导。',
+      '登录账号后即可进入主页管理资源列表。我们提供了清晰的文档说明，帮助您快速上手。',
   },
   {
-    question: 'Nova 支持哪些平台？',
+    question: 'ResHub 支持哪些功能？',
     answer:
-      'Nova 支持 Web、iOS、Android 以及桌面端（Windows / macOS / Linux）。通过统一的 API 接口，您可以轻松实现多平台数据同步与业务逻辑复用。',
+      'ResHub 支持资源管理、分类检索、链接管理、收藏夹等功能。所有资源由开发者统一维护更新。',
   },
   {
     question: '如何联系技术支持？',
     answer:
-      '您可以通过页面底部的联系表单提交工单，或直接发送邮件至 support@nova.com。我们的技术支持团队会在 24 小时内响应。企业客户还可享受专属 VIP 技术支持通道。',
+      '您可以通过页面底部的联系表单提交反馈，或发送邮件至 hello@reshub.com。我们会在 24 小时内响应。',
   },
 ];
 
@@ -103,7 +103,7 @@ export default function Contact() {
               <h3 className="mb-1 text-sm font-semibold uppercase tracking-wider text-white/70">
                 电子邮件
               </h3>
-              <p className="text-sm text-white/40">hello@nova.com</p>
+              <p className="text-sm text-white/40">hello@reshub.com</p>
             </GlassCard>
           </FadeInView>
 

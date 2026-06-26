@@ -279,7 +279,7 @@ export default function About() {
             无论你是管理者、创作者还是团队领袖，ResHub 都欢迎你的加入
           </p>
           <div className="flex items-center justify-center gap-4 flex-wrap">
-            <a href="/test-app/register" className="btn-accent px-10 py-4 text-base inline-flex items-center">加入我们</a>
+            <a href="/test-app/login" className="btn-accent px-10 py-4 text-base inline-flex items-center">加入我们</a>
             <a href="/test-app/contact" className="btn-ghost px-10 py-4 text-base inline-flex items-center">联系我们</a>
           </div>
         </FadeInView>

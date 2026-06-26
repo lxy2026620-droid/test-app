@@ -10,7 +10,7 @@ export default function Login() {
     e.preventDefault();
     const user = createGuestUser("用户", "user@reshub.local");
     auth.login(user);
-    router.push("/test-app/");
+    router.push("/");
   };
 
   return (
@@ -44,7 +44,7 @@ export default function Login() {
         </div>
 
         <h1 className="text-2xl font-semibold text-white text-center">进入资源中心</h1>
-        <p className="mt-2 text-sm text-dark-400 text-center">以默认身份进入控制台</p>
+        <p className="mt-2 text-sm text-dark-400 text-center">以默认身份进入主页</p>
 
         <form onSubmit={handleSubmit} className="mt-8 space-y-5">
           <motion.button
@@ -53,7 +53,7 @@ export default function Login() {
             whileTap={{ scale: 0.99 }}
             className="btn-accent w-full"
           >
-            进入控制台
+            进入主页
           </motion.button>
         </form>
 
