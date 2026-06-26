@@ -5,11 +5,9 @@ import { auth, createGuestUser } from "../lib/auth";
 
 export default function Login() {
   const router = useRouter();
-  const [password, setPassword] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // 始终以默认用户名"用户"登录
     const user = createGuestUser("用户", "user@reshub.local");
     auth.login(user);
     router.push("/test-app/dashboard");
@@ -46,21 +44,9 @@ export default function Login() {
         </div>
 
         <h1 className="text-2xl font-semibold text-white text-center">进入资源中心</h1>
-        <p className="mt-2 text-sm text-dark-400 text-center">输入密码或直接进入</p>
+        <p className="mt-2 text-sm text-dark-400 text-center">以默认身份进入控制台</p>
 
         <form onSubmit={handleSubmit} className="mt-8 space-y-5">
-          <div>
-            <label className="block text-sm font-medium text-dark-300 mb-1.5">访问密码</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="留空直接进入"
-              className="input-field w-full"
-            />
-            <p className="text-xs text-dark-500 mt-1.5">密码暂未启用，直接点击进入即可</p>
-          </div>
-
           <motion.button
             type="submit"
             whileHover={{ scale: 1.01 }}
