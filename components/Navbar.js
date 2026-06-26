@@ -59,11 +59,8 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* Auth Buttons */}
+        {/* Entry Button */}
         <div className="hidden md:flex items-center gap-3">
-          <Link href="/test-app/login" className="btn-ghost px-4 py-2 text-xs">
-            登录
-          </Link>
           <Link href="/test-app/login" className="btn-primary px-4 py-2 text-xs">
             进入控制台
           </Link>

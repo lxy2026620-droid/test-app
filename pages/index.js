@@ -95,17 +95,7 @@ const features = [
   },
 ];
 
-const categoryColors = {
-  '动作冒险': 'from-emerald-400 to-emerald-600',
-  '模拟经营': 'from-violet-400 to-violet-600',
-  '角色扮演': 'from-amber-400 to-amber-600',
-};
-
-const statusStyles = {
-  '可直接游玩': 'text-green-400 bg-green-500/10 border-green-500/20',
-  '待测试': 'text-yellow-400 bg-yellow-500/10 border-yellow-500/20',
-  '链接失效': 'text-red-400 bg-red-500/10 border-red-500/20',
-};
+const hasGames = games.length > 0;
 
 export default function Home() {
   return (
@@ -182,8 +172,8 @@ export default function Home() {
           </motion.p>
 
           <motion.div variants={fadeUp} className="flex items-center justify-center gap-4 flex-wrap">
-            <a href="#latest" className="btn-accent px-8 py-3.5 text-base inline-flex items-center">
-              浏览资源
+            <a href="/test-app/login" className="btn-accent px-8 py-3.5 text-base inline-flex items-center">
+              进入资源中心
               <svg className="ml-2 w-4 h-4" viewBox="0 0 16 16" fill="none">
                 <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
@@ -232,114 +222,56 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─────────── LATEST RESOURCES ─────────── */}
-      <section id="latest" className="relative py-32 px-6">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent-600/5 rounded-full blur-[100px]" />
-        </div>
-
-        <FadeInView className="max-w-6xl mx-auto relative z-10">
-          <div className="text-center mb-16">
-            <h2 className="section-title mb-4">最新资源</h2>
-            <p className="section-subtitle">这里没有虚假的数据，只有真实的资源</p>
+      {/* ─────────── 资源列表（仅当有真实数据时显示）─────────── */}
+      {hasGames ? (
+        <>
+        <section id="resources" className="relative py-32 px-6">
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent-600/5 rounded-full blur-[100px]" />
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {games.slice(0, 3).map((game, i) => (
-              <motion.div
-                key={game.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-80px' }}
-                transition={{ duration: 0.6, delay: i * 0.15, ease: [0.25, 0.1, 0.25, 1] }}
-              >
-                <GlassCard className="p-6 h-full flex flex-col">
-                  {/* Category badge */}
-                  <div className="flex items-center justify-between mb-4">
-                    <span className={`inline-block text-[10px] font-semibold tracking-wider uppercase px-2.5 py-1 rounded-full bg-gradient-to-r ${categoryColors[game.category] || 'from-accent-400 to-accent-600'} text-white shadow-lg shadow-accent-500/20`}>
-                      {game.category}
-                    </span>
-                    <span className={`text-xs px-2 py-0.5 rounded-full border ${statusStyles[game.status] || 'text-dark-400 bg-dark-800/50 border-dark-700'}`}>
-                      {game.status}
-                    </span>
-                  </div>
-
-                  <h3 className="text-white font-semibold text-lg mb-2">{game.title}</h3>
-                  <p className="text-dark-400 text-sm leading-relaxed flex-1 mb-6">
-                    {game.description}
-                  </p>
-
-                  <a
-                    href={game.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-1.5 text-xs font-medium text-accent-300 hover:text-accent-200 transition-colors"
-                  >
-                    访问链接
-                    <svg className="w-3.5 h-3.5" viewBox="0 0 16 16" fill="none">
-                      <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </a>
-                </GlassCard>
-              </motion.div>
-            ))}
-          </div>
-        </FadeInView>
-      </section>
-
-      {/* ─────────── ALL RESOURCES ─────────── */}
-      <section id="resources" className="relative py-32 px-6">
-        <div className="max-w-6xl mx-auto">
-          <FadeInView className="text-center mb-16">
-            <h2 className="section-title mb-4">全部资源</h2>
-            <p className="section-subtitle">浏览收录的所有游戏资源</p>
-          </FadeInView>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {games.map((game, i) => (
-              <motion.div
-                key={game.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-80px' }}
-                transition={{ duration: 0.6, delay: i * 0.15, ease: [0.25, 0.1, 0.25, 1] }}
-              >
-                <GlassCard className="p-6 h-full flex flex-col">
-                  {/* Category badge */}
-                  <div className="flex items-center justify-between mb-4">
-                    <span className={`inline-block text-[10px] font-semibold tracking-wider uppercase px-2.5 py-1 rounded-full bg-gradient-to-r ${categoryColors[game.category] || 'from-accent-400 to-accent-600'} text-white shadow-lg shadow-accent-500/20`}>
-                      {game.category}
-                    </span>
-                    <span className={`text-xs px-2 py-0.5 rounded-full border ${statusStyles[game.status] || 'text-dark-400 bg-dark-800/50 border-dark-700'}`}>
-                      {game.status}
-                    </span>
-                  </div>
-
-                  <h3 className="text-white font-semibold text-lg mb-2">{game.title}</h3>
-                  <p className="text-dark-400 text-sm leading-relaxed flex-1 mb-6">
-                    {game.description}
-                  </p>
-
-                  <div className="flex items-center justify-between">
-                    <span className="text-dark-600 text-xs">收录于 {game.addedAt}</span>
-                    <a
-                      href={game.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-medium text-accent-300 border border-accent-500/20 rounded-lg hover:bg-accent-500/10 transition-colors"
-                    >
+          <FadeInView className="max-w-6xl mx-auto relative z-10">
+            <div className="text-center mb-16">
+              <h2 className="section-title mb-4">全部资源</h2>
+              <p className="section-subtitle">浏览收录的所有资源</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {games.map((game, i) => (
+                <motion.div
+                  key={game.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-80px' }}
+                  transition={{ duration: 0.6, delay: i * 0.15, ease: [0.25, 0.1, 0.25, 1] }}
+                >
+                  <GlassCard className="p-6 h-full flex flex-col">
+                    <h3 className="text-white font-semibold text-lg mb-2">{game.title}</h3>
+                    <p className="text-dark-400 text-sm leading-relaxed flex-1 mb-4">{game.description}</p>
+                    <a href={game.link} target="_blank" rel="noopener noreferrer" className="btn-accent px-4 py-2 text-xs self-start">
                       访问链接
-                      <svg className="w-3.5 h-3.5" viewBox="0 0 16 16" fill="none">
-                        <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
                     </a>
-                  </div>
-                </GlassCard>
-              </motion.div>
-            ))}
+                  </GlassCard>
+                </motion.div>
+              ))}
+            </div>
+          </FadeInView>
+        </section>
+        </>
+      ) : (
+        <section id="resources" className="relative py-32 px-6">
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent-600/5 rounded-full blur-[100px]" />
           </div>
-        </div>
-      </section>
+          <FadeInView className="max-w-2xl mx-auto relative z-10 text-center">
+            <div className="glass rounded-2xl p-16">
+              <div className="text-5xl mb-6 opacity-30">📦</div>
+              <h2 className="section-title mb-4">敬请期待</h2>
+              <p className="text-dark-400 text-base leading-relaxed">
+                资源正在收集中，将由开发者持续更新
+              </p>
+            </div>
+          </FadeInView>
+        </section>
+      )}
 
       {/* ─────────── CTA ─────────── */}
       <section className="relative py-32 px-6">
@@ -349,10 +281,10 @@ export default function Home() {
 
         <FadeInView className="relative z-10 max-w-3xl mx-auto text-center">
           <h2 className="section-title mb-6 text-balance">
-            想要添加资源？
+            资源由开发者持续更新
           </h2>
           <p className="text-dark-300 text-lg md:text-xl mb-10 max-w-xl mx-auto">
-            登录后即可管理您的资源列表
+            进入控制台查看完整资源列表
           </p>
           <div className="flex items-center justify-center gap-4 flex-wrap">
             <a href="/test-app/login" className="btn-accent px-10 py-4 text-base inline-flex items-center">
